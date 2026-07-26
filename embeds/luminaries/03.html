@@ -523,18 +523,34 @@
       b?Math.ceil(b.getBoundingClientRect().bottom):0
     );
   }
-  var last=-1;
+  var last=-1, lastW=-1;
   function post(){
-    var v=H();
-    if(v!==last){ last=v; try{ parent.postMessage({cdBlock:true,h:v}, "*"); }catch(_){} }
+    var v=H(), w=document.documentElement.clientWidth;
+    // Re-post whenever height OR viewport width changes. Some blocks size purely
+    // from vw + aspect-ratio; if the iframe's width lands after first paint, the
+    // height must be recomputed once the real width arrives.
+    if(v!==last || w!==lastW){
+      last=v; lastW=w;
+      try{ parent.postMessage({cdBlock:true,h:v}, "*"); }catch(_){}
+    }
   }
   addEventListener("load", post);
   addEventListener("resize", post);
-  if(window.ResizeObserver){ try{ new ResizeObserver(post).observe(document.body); }catch(_){} }
+  if(window.ResizeObserver){
+    try{
+      var ro=new ResizeObserver(post);
+      ro.observe(document.body);
+      ro.observe(document.documentElement);   // catches width-driven relayout
+    }catch(_){}
+  }
+  // re-measure once every image has decoded (aspect-ratio/background swaps)
+  [].forEach.call(document.images, function(im){
+    if(!im.complete) im.addEventListener("load", post);
+  });
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(post); }
   document.addEventListener("DOMContentLoaded", post);
-  // safety net for late images / async layout
-  var n=0, iv=setInterval(function(){ post(); if(++n>40) clearInterval(iv); }, 250);
+  // safety net for late images / async layout / delayed width (30s, tapering)
+  var n=0, iv=setInterval(function(){ post(); if(++n>60) clearInterval(iv); }, 500);
 })();
 </script>
 </body>

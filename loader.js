@@ -43,7 +43,6 @@
           frame.src = dir + b.file + "?v=" + encodeURIComponent(m.v || "");
           frame.title = (m.title || slug) + " — " + (b.name || b.file);
           frame.setAttribute("scrolling", "no");
-          frame.setAttribute("loading", "lazy");
           frame.style.cssText =
             "display:block;width:100%;border:0;overflow:hidden;height:0;";
           el.appendChild(frame);
