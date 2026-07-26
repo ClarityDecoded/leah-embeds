@@ -23,12 +23,33 @@
   var ROOT = me.src.replace(/loader\.js(?:\?.*)?$/, "");   // .../leah-embeds/
   var EMBEDS = ROOT + "embeds/";
 
+  // An iframe with width:100% can compute its CSS viewport width as 0 during
+  // the child's first layout, which collapses blocks sized in vw units (e.g. an
+  // image band using min(1020px,94vw) + aspect-ratio). Setting an explicit pixel
+  // width guarantees the child always sees a real viewport. We keep it in sync
+  // with the mount's width so it stays responsive.
+  function widthOf(el) {
+    return Math.round(el.clientWidth || el.getBoundingClientRect().width || window.innerWidth || 0);
+  }
+
   function mount(el) {
     if (el.__cdInit) return;
     el.__cdInit = true;
     var slug = el.getAttribute("data-cd-embed");
     if (!slug) return;
     var dir = EMBEDS + slug + "/";
+    var frames = [];
+
+    function syncWidths() {
+      var w = widthOf(el);
+      if (!w) return;
+      for (var i = 0; i < frames.length; i++) frames[i].style.width = w + "px";
+    }
+    // Re-sync on container/viewport changes (Framer breakpoints, orientation).
+    if (window.ResizeObserver) {
+      try { new ResizeObserver(syncWidths).observe(el); } catch (_) {}
+    }
+    window.addEventListener("resize", syncWidths);
 
     // Cache-bust the manifest so edits show up immediately (GitHub Pages caches
     // ~10 min otherwise). Block files are versioned via the manifest's `v`.
@@ -44,8 +65,10 @@
           frame.title = (m.title || slug) + " — " + (b.name || b.file);
           frame.setAttribute("scrolling", "no");
           frame.style.cssText =
-            "display:block;width:100%;border:0;overflow:hidden;height:0;";
+            "display:block;border:0;overflow:hidden;height:0;max-width:100%;";
+          frame.style.width = widthOf(el) + "px";
           el.appendChild(frame);
+          frames.push(frame);
 
           window.addEventListener("message", function (e) {
             if (e.source === frame.contentWindow && e.data && e.data.cdBlock) {
@@ -53,6 +76,7 @@
             }
           });
         });
+        syncWidths();
       })
       .catch(function (err) {
         if (window.console) console.error("[leah-embeds] " + slug + ":", err);
