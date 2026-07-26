@@ -1,0 +1,47 @@
+{
+  "slug": "deep-story",
+  "title": "Deep Story",
+  "v": "20260726231956",
+  "blocks": [
+    {
+      "file": "01.html",
+      "name": "the pouring"
+    },
+    {
+      "file": "02.html",
+      "name": "how it began"
+    },
+    {
+      "file": "03.html",
+      "name": "the practice"
+    },
+    {
+      "file": "04.html",
+      "name": "the drifting"
+    },
+    {
+      "file": "05.html",
+      "name": "the two doors"
+    },
+    {
+      "file": "06.html",
+      "name": "the circle"
+    },
+    {
+      "file": "07.html",
+      "name": "voices"
+    },
+    {
+      "file": "08.html",
+      "name": "details"
+    },
+    {
+      "file": "09.html",
+      "name": "about leah"
+    },
+    {
+      "file": "10.html",
+      "name": "Footer"
+    }
+  ]
+}

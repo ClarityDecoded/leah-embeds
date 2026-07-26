@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>leah-embeds — control panel</title>
+<style>
+  :root{ color-scheme:light dark; }
+  body{ font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+        max-width:900px; margin:3rem auto; padding:0 1.25rem; }
+  h1{ font-size:1.6rem; margin:0 0 .25rem; }
+  .sub{ opacity:.65; margin:0 0 2rem; }
+  .page{ border:1px solid rgba(128,128,128,.3); border-radius:12px; padding:1rem 1.25rem; margin:0 0 1rem; }
+  .page h2{ font-size:1.15rem; margin:0 0 .5rem; display:flex; justify-content:space-between; align-items:baseline; }
+  .page h2 small{ font-weight:400; opacity:.6; }
+  .links a{ display:inline-block; margin:.15rem .5rem .15rem 0; }
+  ol{ margin:.5rem 0 0; padding-left:1.25rem; }
+  ol a{ text-decoration:none; }
+  ol a:hover{ text-decoration:underline; }
+  code{ background:rgba(128,128,128,.15); padding:.1em .4em; border-radius:5px; font-size:.85em; }
+  .v{ opacity:.5; font-size:.8rem; }
+</style>
+</head>
+<body>
+  <h1>leah-embeds — control panel</h1>
+  <p class="sub">Content host for the Framer embeds. Edit the source, run <code>python3 build.py</code>, push — Framer updates on next load.</p>
+  <div id="pages">Loading…</div>
+  <p class="v" id="ver"></p>
+<script>
+fetch("site.json?t=" + Date.now(), {cache:"no-store"})
+  .then(function(r){return r.json();})
+  .then(function(s){
+    document.getElementById("ver").textContent = "build " + s.v;
+    var root = document.getElementById("pages");
+    root.innerHTML = "";
+    Object.keys(s.pages).forEach(function(slug){
+      var p = s.pages[slug];
+      var dir = "embeds/" + slug + "/";
+      var el = document.createElement("div");
+      el.className = "page";
+      el.innerHTML =
+        '<h2>' + p.title + ' <small>' + p.count + ' blocks · <code>' + slug + '</code></small></h2>' +
+        '<div class="links"><a href="' + dir + 'manifest.json" target="_blank">manifest.json</a></div>' +
+        '<ol id="ol-' + slug + '"><li>loading blocks…</li></ol>';
+      root.appendChild(el);
+      fetch(dir + "manifest.json?t=" + Date.now(), {cache:"no-store"})
+        .then(function(r){return r.json();})
+        .then(function(m){
+          var ol = document.getElementById("ol-" + slug);
+          ol.innerHTML = "";
+          m.blocks.forEach(function(b){
+            var li = document.createElement("li");
+            li.innerHTML = '<a href="' + dir + b.file + '" target="_blank">' + b.name + '</a> <span class="v">' + b.file + '</span>';
+            ol.appendChild(li);
+          });
+        });
+    });
+  })
+  .catch(function(e){ document.getElementById("pages").textContent = "Could not load site.json: " + e; });
+</script>
+</body>
+</html>

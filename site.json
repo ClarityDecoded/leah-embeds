@@ -1,0 +1,21 @@
+{
+  "v": "20260726231956",
+  "pages": {
+    "deep-story": {
+      "title": "Deep Story",
+      "count": 10
+    },
+    "luminaries": {
+      "title": "Luminary Circles",
+      "count": 17
+    },
+    "soul-stories": {
+      "title": "Soul Stories",
+      "count": 17
+    },
+    "soul-story-council": {
+      "title": "Soul Story Council",
+      "count": 11
+    }
+  }
+}

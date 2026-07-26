@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_top">
+<title>Luminary Circles — HERO</title>
+<style>html,body{margin:0;padding:0;background:transparent;}</style>
+</head>
+<body>
+<!-- ===== BLOCK 1 — HERO ===== (page: luminaries) -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --cream:#F6F0E2;
+    --cream-deep:#EFE7D4;
+    --ink:#2C2822;
+    --ink-soft:#4A443B;
+    --rust:#8E3B2A;
+    --marigold:#E0930F;
+    --vermilion:#C63C1A;
+    --lapis:#1D5B6B;
+    --cedar:#3F7548;
+    --display:'Cormorant Garamond', Georgia, serif;
+    --body: Georgia, 'Times New Roman', serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink-soft);
+    font-family:var(--body);
+    font-size:19px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;text-align:center;padding:18px 0 0;}
+  .hero-img{
+    position:relative;
+    width:min(1080px, 94vw);
+    margin:0 auto;
+    aspect-ratio:1500/1285;
+    background:url('https://framerusercontent.com/images/3cI6H2aNlORUErYcuiDLkhDAa1I.png') center / cover no-repeat;
+  }
+  .hero-img::after{
+    content:'';
+    position:absolute;
+    inset:14px;
+    border:1px solid var(--marigold);
+    pointer-events:none;
+  }
+  .hero-name{
+    position:relative;
+    z-index:2;
+    margin:30px 0 0;
+    text-align:center;
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(46px, 8.4vw, 104px);
+    letter-spacing:0.06em;
+    line-height:1;
+    color:var(--ink);
+    padding:0 16px;
+  }
+  .hero-below{text-align:center;padding:22px 28px 74px;}
+  .tagline{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(24px, 3.4vw, 34px);
+    color:var(--rust);
+    margin:0 0 20px;
+    line-height:1.3;
+  }
+  .subhead{
+    max-width:520px;margin:0 auto 34px;
+    font-size:19px;color:var(--ink-soft);
+  }
+
+  .lede p:first-child::first-letter{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:5.2em;
+    line-height:0.78;
+    float:left;
+    padding:6px 14px 0 0;
+    color:var(--marigold);
+  }
+
+  /* ---------- SIGNATURE: the threshold rule ---------- */
+  .threshold{display:block;margin:0 auto;width:220px;height:26px;opacity:0.9;}
+  .threshold line{stroke:var(--marigold);stroke-width:1.4;}
+  .threshold path{fill:none;stroke:var(--rust);stroke-width:1;}
+
+  /* ---------- BUTTON ---------- */
+  .cta{
+    display:inline-block;
+    padding:15px 40px;
+    border:1px solid var(--rust);
+    color:var(--rust);
+    text-decoration:none;
+    font-family:var(--body);
+    font-size:13px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    background:transparent;
+    transition:background .25s ease, color .25s ease;
+  }
+  .cta:hover,.cta:focus-visible{background:var(--rust);color:var(--cream);}
+  .cta.solid{background:var(--vermilion);border-color:var(--vermilion);color:var(--cream);}
+  .cta.solid:hover,.cta.solid:focus-visible{background:var(--rust);border-color:var(--rust);}
+  a:focus-visible{outline:2px solid var(--lapis);outline-offset:4px;}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:78px 0;}
+  section.tint{background:var(--cream-deep);}
+  h2{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:clamp(36px, 5vw, 56px);
+    line-height:1.14;
+    color:var(--vermilion);
+    margin:0 0 34px;
+    letter-spacing:0.01em;
+  }
+  h2::after{
+    content:'';
+    display:block;
+    width:118px;
+    height:3px;
+    background:var(--vermilion);
+    margin:24px 0 0;
+  }
+  .includes h2::after{margin:20px auto 0;width:92px;}
+  p{margin:0 0 22px;}
+  .lede p{font-size:22px;line-height:1.85;}
+  .stack p{margin:0 0 12px;}
+
+  /* ---------- PULL QUOTE ---------- */
+  .pull{
+    text-wrap:balance;
+    text-align:center;
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(26px, 3.8vw, 38px);
+    line-height:1.4;
+    color:var(--ink);
+    margin:0;
+  }
+  .pull em{color:var(--vermilion);font-style:italic;}
+
+
+  /* ---------- LISTS ---------- */
+  ul.marked{list-style:none;padding:0;margin:0 0 22px;}
+  ul.marked li{
+    position:relative;
+    padding:0 0 0 30px;
+    margin:0 0 14px;
+    line-height:1.7;
+  }
+  ul.marked li::before{
+    content:'';
+    position:absolute;left:2px;top:14px;
+    width:9px;height:9px;
+    border:1.5px solid var(--marigold);
+    border-radius:50% 0;
+    transform:rotate(45deg);
+  }
+  .questions p{
+    position:relative;
+    font-family:var(--display);
+    font-size:24px;
+    font-style:italic;
+    color:var(--ink);
+    line-height:1.45;
+    margin:0 0 20px;
+    padding-left:34px;
+  }
+  .questions p::before{
+    content:'';
+    position:absolute;left:2px;top:0.48em;
+    width:10px;height:10px;
+    background:var(--marigold);
+    border-radius:50% 0;
+    transform:rotate(45deg);
+  }
+
+  /* ---------- IMAGE BREAK ---------- */
+  .break-img{
+    position:relative;
+    width:min(1020px, 94vw);
+    margin:0 auto;
+    aspect-ratio:1500/1428;
+    background:url('https://framerusercontent.com/images/IW0ujvacYA9k1eIqCR5YP3DPM7A.png') center / cover no-repeat;
+  }
+  .break-img::after{
+    content:'';
+    position:absolute;
+    inset:14px;
+    border:1px solid var(--marigold);
+    pointer-events:none;
+  }
+  .plate{
+    position:relative;
+    width:min(560px, 84vw);
+    aspect-ratio:1/1;
+    margin:0 auto;
+    border-radius:50%;
+    background:url('https://framerusercontent.com/images/gckRzLlz7ZWc9fop3QJYAfjPdc.png') center / cover no-repeat;
+  }
+  .plate::before{
+    content:'';
+    position:absolute;
+    inset:16px;
+    border-radius:50%;
+    border:1px solid var(--marigold);
+  }
+  .plate::after{
+    content:'';
+    position:absolute;
+    inset:-16px;
+    border-radius:50%;
+    border:1px solid var(--lapis);
+  }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonial{
+    max-width:680px;margin:0 auto;text-align:center;
+    padding:38px 0 34px;
+    border-top:1px solid rgba(198,60,26,0.45);
+    border-bottom:1px solid rgba(198,60,26,0.45);
+  }
+  .testimonial::before{
+    content:'\201C';
+    display:block;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(64px, 7vw, 84px);
+    line-height:0.55;
+    color:var(--marigold);
+    margin:14px 0 18px;
+  }
+  .testimonial blockquote{
+    margin:0 0 22px;
+    text-wrap:balance;
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(23px, 2.9vw, 30px);
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .testimonial blockquote p{margin:0 0 16px;}
+  .attrib{
+    font-family:var(--body);
+    font-size:13px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--vermilion);
+    margin:0;
+  }
+  .attrib span{display:block;text-transform:none;letter-spacing:0.04em;font-style:italic;color:var(--ink-soft);margin-top:4px;font-size:14px;}
+
+  /* ---------- INCLUDES CARD ---------- */
+  .duo{
+    display:grid;
+    grid-template-columns:0.95fr 1fr;
+    gap:34px;
+    align-items:center;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .duo .plate{width:min(100%, 460px);justify-self:center;}
+  .duo .includes{margin:0;max-width:none;}
+  @media (max-width:900px){
+    .duo{grid-template-columns:1fr;gap:40px;}
+    .duo .plate{max-width:min(560px,86vw);margin-top:16px;}
+  }
+  .includes{
+    max-width:640px;margin:0 auto;
+    border:1px solid rgba(142,59,42,0.28);
+    padding:44px 46px;
+    background:var(--cream);
+  }
+  .includes h2{text-align:center;font-size:clamp(30px,3.4vw,38px);margin-bottom:26px;}
+  .includes ul{list-style:none;padding:0;margin:0;}
+  .includes li{
+    padding:16px 0;
+    border-bottom:1px solid rgba(224,147,18,0.30);
+    font-size:18px;
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .includes li:last-child{border-bottom:none;}
+
+  /* ---------- TUITION ---------- */
+  .tuition{text-align:center;}
+  .tuition .label{
+    font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--rust);margin:0 0 10px;
+  }
+  .tuition .amount{
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(58px, 9vw, 92px);
+    line-height:1;
+    color:var(--ink);
+    margin:0 0 22px;
+  }
+  .cohort{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:300;
+    font-size:clamp(22px, 2.8vw, 28px);
+    color:var(--vermilion);
+    margin:0 0 30px;
+    line-height:1.3;
+  }
+  .booking{margin:26px 0 0;font-size:16px;}
+  .booking a{
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1.5px solid var(--marigold);
+    padding-bottom:2px;
+    transition:color .25s ease;
+  }
+  .booking a:hover,.booking a:focus-visible{color:var(--vermilion);}
+
+
+  /* ---------- EYEBROW ---------- */
+  .eyebrow{
+    font-family:var(--body);
+    font-size:12px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin:0 0 14px;
+  }
+
+  /* ---------- TWO-COLUMN ---------- */
+  .split{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:center;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .split h2{font-size:clamp(32px,4vw,46px);}
+  @media (max-width:900px){
+    .split{grid-template-columns:1fr;gap:38px;}
+    .split .col-img{order:-1;}
+  }
+
+  /* ---------- FRAMED IMAGES ---------- */
+  .framed{position:relative;}
+  .framed::after{
+    content:'';
+    position:absolute;
+    inset:12px;
+    border:1px solid var(--marigold);
+    pointer-events:none;
+  }
+  .compass-img{
+    width:100%;
+    max-width:520px;
+    margin:0 auto;
+    aspect-ratio:688/796;
+    background:#E8E0CE url('https://framerusercontent.com/images/SjEoGddddIqAauDJq9fHG4RMs4.png') center / cover no-repeat;
+  }
+  .tree-img{
+    width:100%;
+    max-width:500px;
+    margin:0 auto;
+    aspect-ratio:642/802;
+    background:#1a1408 url('https://framerusercontent.com/images/DIkBMnUda8so2HWvfBrr34h0CVk.png') center / cover no-repeat;
+  }
+  .portrait{
+    width:100%;
+    max-width:440px;
+    margin:0 auto;
+    aspect-ratio:4/5;
+    background:#3A3A30 url('https://framerusercontent.com/images/nHjpPnKecCgvb4I4aSsp5D5yApU.jpg') center / cover no-repeat;
+  }
+
+  /* ---------- FACTS CARD ---------- */
+  .facts{
+    border:1px solid var(--marigold);
+    background:rgba(224,147,18,0.09);
+    padding:32px 36px;
+    margin-top:42px;
+  }
+  .facts p{margin:0 0 8px;font-size:17px;}
+  .facts p:last-child{margin:0;}
+  .facts .fact-lead{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:23px;
+    line-height:1.3;
+    color:var(--ink);
+    margin:0 0 4px;
+  }
+  .facts .fact-lead + p{margin-bottom:22px;}
+  .facts p:last-child{margin-bottom:0;}
+
+  /* ---------- WHISPER + SEATS ---------- */
+  .whisper{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(21px,2.4vw,25px);
+    color:var(--lapis);
+    margin:34px 0 24px;
+  }
+  .seats{
+    font-size:15px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    margin:24px 0 0;
+  }
+
+  /* ---------- QUOTE PAIR ---------- */
+  .pair{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:54px;
+    max-width:1100px;
+    margin:64px auto 0;
+    padding:0 28px;
+    align-items:start;
+  }
+  @media (max-width:900px){.pair{grid-template-columns:1fr;gap:48px;}}
+  .pair .testimonial blockquote{font-size:clamp(20px,2.2vw,24px);}
+
+  /* ---------- PRICE INSIDE THE CARD ---------- */
+  .price-line{
+    margin:26px 0 0;
+    padding-top:24px;
+    border-top:1px solid rgba(224,147,18,0.55);
+    text-align:center;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:26px;
+    color:var(--ink);
+  }
+  .price-line .dot{color:var(--marigold);padding:0 6px;}
+
+  /* ---------- EXIT LINE ---------- */
+  .exit{
+    max-width:760px;
+    margin:0 auto;
+    padding:30px 28px 0;
+    border-top:1px solid rgba(142,59,42,0.22);
+    text-align:center;
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .exit a{color:var(--rust);text-decoration:none;border-bottom:1px solid var(--marigold);}
+  .exit a:hover{color:var(--vermilion);}
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    text-align:center;
+    font-family:var(--display);
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(28px, 3.8vw, 40px);
+    line-height:1.4;
+    color:var(--rust);
+    margin:0;
+  }
+  footer{padding:78px 0 96px;text-align:center;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+  @media (max-width:600px){
+    body{font-size:17px;}
+    section{padding:56px 0;}
+    .includes{padding:32px 24px;}
+  }
+
+/* ---- placeholder for images not yet on the CDN ---- */
+.ph{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:
+    repeating-linear-gradient(45deg,rgba(120,90,20,.05) 0 12px,rgba(120,90,20,.10) 12px 24px);
+  border:1px dashed currentColor;color:#9a7626;min-height:120px;
+}
+.ph span{font-family:Georgia,serif;font-size:14px;font-style:italic;line-height:1.5;
+  padding:24px;max-width:32ch;}
+.ph span b{display:block;font-style:normal;letter-spacing:.12em;text-transform:uppercase;
+  font-size:11px;margin-bottom:8px;opacity:.8;}
+.reveal{opacity:1 !important;transform:none !important;}
+.hero__art,.hero__head{opacity:1 !important;transform:none !important;animation:none !important;}
+</style>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-img" role="img" aria-label="A nature mandala of petals, seed pods, grasses and lace flower arranged on the earth"></div>
+  <h1 class="hero-name">Luminary Circles</h1>
+</header>
+<!-- ===== leah-embeds height reporter ===== -->
+<script>
+(function(){
+  function H(){
+    var d=document, b=d.body, e=d.documentElement;
+    return Math.max(
+      b?b.scrollHeight:0, e.scrollHeight,
+      b?b.offsetHeight:0, e.offsetHeight,
+      b?Math.ceil(b.getBoundingClientRect().bottom):0
+    );
+  }
+  var last=-1;
+  function post(){
+    var v=H();
+    if(v!==last){ last=v; try{ parent.postMessage({cdBlock:true,h:v}, "*"); }catch(_){} }
+  }
+  addEventListener("load", post);
+  addEventListener("resize", post);
+  if(window.ResizeObserver){ try{ new ResizeObserver(post).observe(document.body); }catch(_){} }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(post); }
+  document.addEventListener("DOMContentLoaded", post);
+  // safety net for late images / async layout
+  var n=0, iv=setInterval(function(){ post(); if(++n>40) clearInterval(iv); }, 250);
+})();
+</script>
+</body>
+</html>

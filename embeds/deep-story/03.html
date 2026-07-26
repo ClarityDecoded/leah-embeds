@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_top">
+<title>Deep Story — the practice</title>
+<style>html,body{margin:0;padding:0;background:transparent;}</style>
+</head>
+<body>
+<!-- ===== BLOCK 3 — the practice ===== (page: deep-story) -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+    --paper:      #ece6e0;
+    --paper-lift: #f3efeb;
+    --ink:        #241b2b;
+    --ink-soft:   #6d6175;
+    --oxblood:    #78312f;
+
+    --display: "IM Fell English", Georgia, serif;
+    --body:    "Spectral", Georgia, serif;
+
+    --measure: 34rem;
+    --gut: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    /* Framer's HTML-embed wrapper injects `body{display:flex;justify-content:center;
+       align-items:center}`, which lays top-level content out in one centered row.
+       Force normal block flow. */
+    display:block !important;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-weight:300;
+    font-size:clamp(1.05rem,0.98rem + 0.35vw,1.2rem);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(110% 60% at 50% -5%, #f5f1ed 0%, rgba(245,241,237,0) 62%),
+      radial-gradient(90% 55% at 50% 104%, #e8e1db 0%, rgba(232,225,219,0) 70%);
+    background-attachment:fixed;
+  }
+
+  ::selection{ background:var(--oxblood); color:var(--paper); }
+
+  .wrap{ width:100%; max-width:64rem; margin-inline:auto; padding-inline:var(--gut); }
+  .narrow{ max-width:var(--measure); }
+
+  h1,h2,h3{ font-family:var(--display); font-weight:400; letter-spacing:0.01em; }
+  h1{ font-size:clamp(3.2rem,2rem + 6vw,6rem); line-height:0.92; margin:0; }
+  h2{ font-size:clamp(1.9rem,1.4rem + 1.8vw,2.7rem); line-height:1.15; margin:0 0 1rem; }
+  h3{ font-size:1.5rem; line-height:1.25; margin:0 0 0.75rem; }
+  p{ margin:0 0 1.25em; }
+
+  .lede{ font-size:clamp(1.2rem,1.05rem + 0.6vw,1.45rem); line-height:1.65; }
+  .tagline{
+    font-family:var(--display); font-style:italic;
+    font-size:clamp(1.3rem,1.05rem + 1vw,1.85rem);
+    color:var(--oxblood); margin:1rem 0 0; line-height:1.3;
+  }
+
+  /* small caption voice — serif, never mono */
+  .caption{
+    font-family:var(--body);
+    font-style:italic;
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* ── artwork ──────────────────────────────── */
+  figure{ margin:0; }
+  .art img{
+    display:block; width:100%; height:auto;
+    border:1px solid rgba(120,49,47,0.4);
+    box-shadow:0 18px 44px -20px rgba(36,27,43,0.5);
+  }
+  .art figcaption{ margin-top:0.85rem; }
+
+  /* ── hero: complete painting + title ──────── */
+  .hero{
+    display:grid; gap:clamp(2rem,5vw,3.5rem);
+    grid-template-columns:1fr;
+    align-items:center;
+    padding-block:clamp(2.5rem,6vw,4.5rem) clamp(3rem,7vw,5rem);
+  }
+  @media(min-width:52rem){ .hero{ grid-template-columns:0.8fr 1.2fr; } }
+  .hero__art{ max-width:20rem; width:100%; margin-inline:auto; opacity:0; animation:fade 1.4s 0.1s ease forwards; }
+  .hero__head{ opacity:0; animation:rise 1.1s 0.45s cubic-bezier(.2,.7,.3,1) forwards; }
+  .hero__head .lede{ margin-top:clamp(1.75rem,3vw,2.5rem); margin-bottom:0; }
+
+  @keyframes rise{ from{opacity:0; transform:translateY(1.25rem);} to{opacity:1; transform:none;} }
+  @keyframes fade{ to{opacity:1;} }
+
+  section{ padding-block:clamp(3.5rem,8vw,6rem); }
+  .rule{
+    border:0; height:1px; margin:0; opacity:0.5;
+    background:linear-gradient(90deg,transparent,var(--oxblood) 22%,var(--oxblood) 78%,transparent);
+  }
+
+  /* ── painting + text pairs ────────────────── */
+  .pair{ display:grid; grid-template-columns:1fr; gap:clamp(2rem,5vw,3.5rem); align-items:center; }
+  @media(min-width:52rem){
+    .pair{ grid-template-columns:1.05fr 0.95fr; }
+    .pair--flip .pair__art{ order:-1; }
+  }
+  .pair__text{ max-width:34rem; }
+
+  @media(min-width:52rem){
+    .pair--bio{ grid-template-columns:0.92fr 1.08fr; }
+  }
+
+  /* ── voices: holds one testimonial or several ── */
+  .voices{ display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(2.5rem,5vw,4rem); }
+  .voice{ flex:1 1 21rem; max-width:30rem; margin:0; }
+  .voice blockquote{
+    margin:0; font-family:var(--display);
+    font-size:clamp(1.15rem,1.05rem + 0.45vw,1.4rem);
+    line-height:1.55; text-indent:-0.35em;
+  }
+  .voice figcaption{
+    font-family:var(--body); font-size:0.85rem;
+    letter-spacing:0.08em; color:var(--oxblood);
+    margin-top:1.25rem; display:flex; align-items:center; gap:0.75rem;
+  }
+  .voice figcaption::before{ content:""; width:1.75rem; height:1px; background:var(--oxblood); opacity:0.7; flex:none; }
+
+  /* ── boundary note ────────────────────────── */
+  .boundary{
+    border-left:2px solid var(--oxblood);
+    padding:0.1rem 0 0.1rem 1.35rem;
+    margin:2.5rem 0 0;
+    color:var(--ink-soft);
+    font-size:0.98rem; line-height:1.65;
+  }
+
+  /* ── testimonial ──────────────────────────── */
+  .witness{ max-width:var(--measure); }
+  .witness blockquote{
+    margin:0; font-family:var(--display);
+    font-size:clamp(1.05rem,1rem + 0.28vw,1.22rem);
+    line-height:1.6; text-indent:-0.35em;
+    color:var(--ink-soft);
+  }
+  .witness figcaption{
+    font-family:var(--body); font-style:normal;
+    font-size:0.85rem; letter-spacing:0.08em;
+    color:var(--oxblood); margin-top:1.1rem;
+    display:flex; align-items:center; gap:0.75rem;
+  }
+  .witness figcaption::before{ content:""; width:1.75rem; height:1px; background:var(--oxblood); opacity:0.7; flex:none; }
+
+  /* ── two doors ────────────────────────────── */
+  .doors{ display:grid; gap:clamp(1rem,3vw,1.75rem); grid-template-columns:1fr; }
+  @media(min-width:48rem){ .doors{ grid-template-columns:1fr 1fr; } }
+  .door{
+    background:var(--paper-lift);
+    border:1px solid rgba(120,49,47,0.3);
+    padding:clamp(1.5rem,3vw,2.25rem);
+  }
+  .door p:last-child{ margin-bottom:0; }
+
+  /* ── the details (soft, serif, same paper) ── */
+  .details{ text-align:center; padding-block:clamp(3rem,7vw,5rem); }
+  .facts{
+    display:flex; flex-wrap:wrap;
+    justify-content:center; align-items:baseline;
+    gap:0.5rem 1.5rem;
+    margin:0 0 2.75rem;
+    font-family:var(--display);
+    font-size:clamp(1.25rem,1.05rem + 0.8vw,1.7rem);
+    line-height:1.4;
+  }
+  .facts span{ display:inline-block; }
+  .facts .sep{ color:var(--oxblood); opacity:0.6; }
+  .facts .tuition{ color:var(--oxblood); }
+  .when{
+    font-family:var(--display);
+    font-size:clamp(1.9rem,1.4rem + 1.8vw,2.7rem);
+    line-height:1.2; color:var(--oxblood);
+    margin:-1.5rem 0 0.35rem;
+  }
+  .when-time{
+    font-family:var(--body); font-style:italic;
+    font-size:1.1rem; color:var(--ink-soft);
+    margin:0 0 2.75rem;
+  }
+
+  .cta{
+    display:inline-block;
+    font-family:var(--display);
+    font-size:1.15rem; letter-spacing:0.03em;
+    color:var(--paper); background:var(--oxblood);
+    padding:0.85rem 2.6rem; text-decoration:none;
+    transition:background 0.25s ease, transform 0.25s ease;
+  }
+  .cta:hover{ background:#8f3b38; transform:translateY(-2px); }
+  .cta:focus-visible{ outline:2px solid var(--ink); outline-offset:4px; }
+  .cta-note{ margin:1.5rem 0 0; }
+
+  footer{ padding-block:clamp(3.5rem,7vw,5.5rem); text-align:center; }
+  footer blockquote{
+    margin:0 auto; max-width:30rem;
+    font-family:var(--display); font-style:italic;
+    font-size:clamp(1.3rem,1.05rem + 1vw,1.8rem);
+    line-height:1.45;
+  }
+  footer cite{
+    display:block; margin-top:1.5rem;
+    font-family:var(--body); font-style:normal;
+    font-size:0.9rem; letter-spacing:0.05em;
+    color:var(--ink-soft);
+  }
+
+  .reveal{ opacity:0; transform:translateY(1.25rem); transition:opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  a{ color:var(--oxblood); }
+  a:focus-visible{ outline:2px solid var(--oxblood); outline-offset:3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation:none !important; transition:none !important; }
+    .reveal,.hero__head,.hero__art{ opacity:1 !important; transform:none !important; }
+  }
+
+/* ---- placeholder for images not yet on the CDN ---- */
+.ph{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:
+    repeating-linear-gradient(45deg,rgba(120,90,20,.05) 0 12px,rgba(120,90,20,.10) 12px 24px);
+  border:1px dashed currentColor;color:#9a7626;min-height:120px;
+}
+.ph span{font-family:Georgia,serif;font-size:14px;font-style:italic;line-height:1.5;
+  padding:24px;max-width:32ch;}
+.ph span b{display:block;font-style:normal;letter-spacing:.12em;text-transform:uppercase;
+  font-size:11px;margin-bottom:8px;opacity:.8;}
+.reveal{opacity:1 !important;transform:none !important;}
+.hero__art,.hero__head{opacity:1 !important;transform:none !important;animation:none !important;}
+</style>
+
+<!-- ── 2. the practice ──────────────────────── -->
+<section class="wrap">
+  <div class="pair reveal">
+    <div class="pair__text">
+      <p>Together we meet sacred storytelling as a practice, tending both the process it takes to bring your story from concept to completion, and the creator &mdash; you &mdash; and what you go through in bringing a story to life.</p>
+      <p>You may share up to ten pages, double spaced, each week &mdash; as we practice uncovering the wisdom, medicine, deeper truth, and hilarity hidden within our lived experiences, and discover how to shape these stories so that they can serve others.</p>
+      <p class="boundary">These sessions may touch the deepest parts of our stories. They can be therapeutic, but they are not therapy.</p>
+    </div>
+    <figure class="art pair__art" style="max-width:19rem; margin-inline:auto;">
+      <img src="https://framerusercontent.com/images/mGzYOHkdYgV6RnbwZbrEhKaTk.jpg" alt="An oil painting of a young woman in a red gown writing with a quill.">
+    </figure>
+  </div>
+</section>
+<!-- ===== leah-embeds height reporter ===== -->
+<script>
+(function(){
+  function H(){
+    var d=document, b=d.body, e=d.documentElement;
+    return Math.max(
+      b?b.scrollHeight:0, e.scrollHeight,
+      b?b.offsetHeight:0, e.offsetHeight,
+      b?Math.ceil(b.getBoundingClientRect().bottom):0
+    );
+  }
+  var last=-1;
+  function post(){
+    var v=H();
+    if(v!==last){ last=v; try{ parent.postMessage({cdBlock:true,h:v}, "*"); }catch(_){} }
+  }
+  addEventListener("load", post);
+  addEventListener("resize", post);
+  if(window.ResizeObserver){ try{ new ResizeObserver(post).observe(document.body); }catch(_){} }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(post); }
+  document.addEventListener("DOMContentLoaded", post);
+  // safety net for late images / async layout
+  var n=0, iv=setInterval(function(){ post(); if(++n>40) clearInterval(iv); }, 250);
+})();
+</script>
+</body>
+</html>
