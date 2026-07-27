@@ -23,6 +23,21 @@
   var ROOT = me.src.replace(/loader\.js(?:\?.*)?$/, "");   // .../leah-embeds/
   var EMBEDS = ROOT + "embeds/";
 
+  // Framer's HTML-embed wrapper measures body height with a ResizeObserver and
+  // posts {embedHeight} to the page, which sizes the embed iframe. That observer
+  // reads 0 before our blocks load and doesn't reliably re-fire on our async
+  // height changes — leaving the embed stuck at 0. So we post the height in
+  // Framer's own protocol whenever our content changes (same message shape, so
+  // it's idempotent alongside Framer's script).
+  var lastReported = -1;
+  function reportHeight() {
+    var h = document.body ? document.body.scrollHeight : 0;
+    if (h && h !== lastReported) {
+      lastReported = h;
+      try { parent.postMessage({ embedHeight: h }, "*"); } catch (_) {}
+    }
+  }
+
   // Framer wraps HTML embeds in a body styled
   //   body{ display:flex; justify-content:center; align-items:center }
   // which collapses our top-down, full-width block flow (the mount shrinks to its
@@ -96,10 +111,12 @@
           window.addEventListener("message", function (e) {
             if (e.source === frame.contentWindow && e.data && e.data.cdBlock) {
               frame.style.height = e.data.h + "px";
+              reportHeight();
             }
           });
         });
         syncWidths();
+        reportHeight();
       })
       .catch(function (err) {
         if (window.console) console.error("[leah-embeds] " + slug + ":", err);
@@ -110,6 +127,13 @@
     neutralizeHost();
     var mounts = document.querySelectorAll("[data-cd-embed]");
     for (var i = 0; i < mounts.length; i++) mount(mounts[i]);
+    // Keep reporting height to the Framer host for a while as blocks/images
+    // settle, then rely on the per-block message + resize handlers.
+    window.addEventListener("resize", reportHeight);
+    var t = 0, hi = setInterval(function () {
+      reportHeight();
+      if (++t > 50) clearInterval(hi);   // ~15s
+    }, 300);
   }
 
   if (document.readyState === "loading") {
