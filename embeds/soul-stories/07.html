@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base target="_top">
 <title>Soul Stories — ══════════ SIGNS ══════════</title>
-<style>html,body{margin:0;padding:0;background:transparent;}</style>
+<style>
+html,body{margin:0;padding:0;background:transparent;}
+/* Cap full-width feature images so they don't balloon on wide desktops.
+   Covers <img> elements (Deep Story / Soul Stories / Council) and the
+   background-image feature divs (Luminaries .hero-img / .break-img). */
+img{max-width:min(100%,900px);height:auto;}
+.hero-img,.break-img{max-width:900px;margin-left:auto;margin-right:auto;}
+:where(.hero,.hero__art,.earthplate,figure) img{margin-left:auto;margin-right:auto;}
+</style>
 </head>
 <body>
 <!-- ===== BLOCK 7 — ══════════ SIGNS ══════════ ===== (page: soul-stories) -->
