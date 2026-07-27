@@ -4,7 +4,7 @@
 > update "Current state" / "Known issues / watch list" as needed and add a dated
 > entry to the top of the Change log. Keep it short and factual.
 
-_Last updated: 2026-07-26_
+_Last updated: 2026-07-27_
 
 ## What this is
 Content host for the 4 Framer embeds on schoolforsacredstorytelling.com. Framer
@@ -40,6 +40,9 @@ See `README.md` (full workflow) and `CLAUDE.md` (rules).
   `<style>` (per-block head styles + image cap).
 
 ## Change log (newest first)
+- **2026-07-27** — Centered the Soul Story Council banner image: added
+  `.banner-figure` to the centering selector in `build.py` WRAPPER so the
+  900px-capped hero centers instead of hugging the left edge.
 - **2026-07-26** — Added `CLAUDE.md` + this `STATUS.md`; invited `lambchopstory`
   (write); made repo self-contained by bundling `source/` and rewiring `build.py`.
 - **2026-07-26** — Capped full-width feature images at 900px (`!important` in
