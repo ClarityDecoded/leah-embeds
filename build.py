@@ -15,16 +15,18 @@ import re, json, shutil, datetime
 from pathlib import Path
 
 # --- paths -------------------------------------------------------------------
+# Self-contained: source lives in source/<slug>.html inside this repo, so anyone
+# can clone just leah-embeds and edit + rebuild + deploy with nothing external.
 HERE = Path(__file__).resolve().parent          # .../leah-embeds
-PROJECT = HERE.parent                            # .../Leah
-EMBEDS = HERE / "embeds"
+SOURCE = HERE / "source"                         # editable source of truth
+EMBEDS = HERE / "embeds"                          # generated output (do not edit)
 
-# slug -> (source file, human page title)
+# slug -> human page title. Source file is source/<slug>.html.
 PAGES = {
-    "deep-story":         (PROJECT / "Deep Story/deep-story-framer-blocks.html",            "Deep Story"),
-    "luminaries":         (PROJECT / "Luminaries/luminary-framer-blocks.html",              "Luminary Circles"),
-    "soul-stories":       (PROJECT / "Soul Stories/Soul Stories  Final/soul-stories-framer-blocks.html", "Soul Stories"),
-    "soul-story-council": (PROJECT / "Soul Story Council/soul-story-council-framer-blocks.html", "Soul Story Council"),
+    "deep-story":         "Deep Story",
+    "luminaries":         "Luminary Circles",
+    "soul-stories":       "Soul Stories",
+    "soul-story-council": "Soul Story Council",
 }
 
 START = re.compile(r'<!--\s*=+\s*BLOCK\s+(\d+)\s*[—–-]\s*(.*?)\s*=+\s*-->', re.S)
@@ -129,7 +131,8 @@ def main():
     version = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H%M%S")
 
     site = {}
-    for slug, (src, title) in PAGES.items():
+    for slug, title in PAGES.items():
+        src = SOURCE / f"{slug}.html"
         text = src.read_text(encoding="utf-8")
         blocks = split_blocks(text)
         outdir = EMBEDS / slug

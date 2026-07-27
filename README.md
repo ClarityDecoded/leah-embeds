@@ -38,34 +38,73 @@ Framer embed — so the blocks' global CSS never collides.
 Change `deep-story` to the right slug per page. That's the only thing that ever
 goes into Framer.
 
-## Editing content
+## Editing content — the whole workflow
 
-Source of truth is the four `*-framer-blocks.html` files in the parent project
-folder. To change wording, swap an image, add / remove / reorder a block:
+This repo is **self-contained**: the source of truth is the four files in
+`source/`, and everything else is generated from them. You only need this one
+repo — nothing external.
 
-1. Edit the relevant source `*-framer-blocks.html` file (blocks are delimited by
-   `<!-- ===== BLOCK n — name ===== -->` … `<!-- ===== end block n ===== -->`).
-2. Regenerate:
+### One-time setup
+
+```bash
+git clone https://github.com/ClarityDecoded/leah-embeds.git
+cd leah-embeds
+```
+
+You need **git** and **Python 3** (`python3 --version`). Nothing else — no npm,
+no build tools. To push changes you must be a collaborator on the repo (ask the
+owner to add your GitHub username under Settings → Collaborators).
+
+### To make a change
+
+1. **Edit** the relevant file in `source/`:
+   - `source/deep-story.html`
+   - `source/luminaries.html`
+   - `source/soul-stories.html`
+   - `source/soul-story-council.html`
+
+   Each page is split into **blocks**, delimited by:
+   ```html
+   <!-- ===== BLOCK 3 — the practice ===== -->
+      ... this block's HTML/CSS ...
+   <!-- ===== end block 3 ===== -->
+   ```
+   Edit the HTML between those markers to change wording, swap an image
+   (`framerusercontent.com/...` URLs), tweak styles, or reorder/add/remove a
+   whole block. Each block is fully self-contained (its own fonts + CSS).
+
+2. **Rebuild** (regenerates everything under `embeds/`):
    ```bash
    python3 build.py
    ```
-3. Commit + push:
+
+3. **Push** — GitHub Pages redeploys automatically (~1 min):
    ```bash
-   git add -A && git commit -m "edit: ..." && git push
+   git add -A && git commit -m "edit: <what changed>" && git push
    ```
 
 The build stamps a new version `v` into every `manifest.json`, which busts the
-CDN cache so the change appears on the next Framer load.
+CDN cache so the change shows up on the next Framer page load. **You never touch
+Framer.** (Doing this with Claude Code? Just describe the change and let it run
+these steps.)
+
+### Global tweaks
+
+Two things apply across all pages and live in the build, not in each block:
+- **`loader.js`** — how the embed loads/sizes blocks and reports height to Framer.
+- **`build.py`** (the `WRAPPER` `<style>`) — e.g. the 900px cap on full-width
+  feature images. Change it there, rebuild, push.
 
 ## Layout
 
 ```
-loader.js                     shared loader (referenced by Framer)
-build.py                      regenerates embeds/ from the source files
+source/<slug>.html            ← EDIT THESE — source of truth, split into blocks
+build.py                      regenerates embeds/ from source/ (run after editing)
+loader.js                     shared loader referenced by Framer (global behavior)
 index.html                    control panel (lists pages + blocks)
 site.json                     build manifest (generated)
 embeds/<slug>/manifest.json   ordered block list + version (generated)
 embeds/<slug>/NN.html         one isolated, standalone block (generated)
 ```
 
-Everything under `embeds/` is generated — edit the source files, not these.
+Everything under `embeds/` is generated — **edit `source/`, not `embeds/`.**
