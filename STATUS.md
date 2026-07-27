@@ -15,13 +15,17 @@ See `README.md` (full workflow) and `CLAUDE.md` (rules).
 - All 4 pages render correctly on the live site, desktop + mobile:
   `/deep-story` (10 blocks), `/luminaries` (17), `/soul-stories` (17),
   `/soul-story-council` (11). 55 blocks total.
-- Latest build version `v`: **20260727011728** (check `site.json` for current).
+- Deployed build version `v`: **20260727042143** (run
+  `curl -s https://claritydecoded.github.io/leah-embeds/site.json` for current).
+- Repo is clean and in sync with `origin/main`; nothing pending.
 - Embeds auto-size and grow to fit in Framer; no collapse, no gaps.
 - All links verified working (200). Integration Journey link wired to
   `https://webweaving-llc.thrivecart.com/soul-stories-integration/`.
-- Full-width feature images capped at **900px** on wide screens.
-- Repo is self-contained (`source/` is source of truth) and shared with
-  collaborator `lambchopstory` (write access).
+- Full-width feature images capped at **900px** on wide screens; Soul Story
+  Council banner centered.
+- Repo is self-contained (`source/` is source of truth), fully documented
+  (`CLAUDE.md`, `README.md`, this file), and shared with collaborator
+  `lambchopstory` (write access).
 
 ## Known issues / watch list
 - None open.
@@ -40,6 +44,9 @@ See `README.md` (full workflow) and `CLAUDE.md` (rules).
   `<style>` (per-block head styles + image cap).
 
 ## Change log (newest first)
+- **2026-07-27** — Docs refresh for smooth handoff: added "Good to know / gotchas"
+  to `CLAUDE.md` (version-only diffs are noise & safe to discard; GitHub Desktop +
+  terminal path; live-version check) and synced this file.
 - **2026-07-27** — Centered the Soul Story Council banner image: added
   `.banner-figure` to the centering selector in `build.py` WRAPPER so the
   900px-capped hero centers instead of hugging the left edge.

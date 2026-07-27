@@ -58,6 +58,24 @@ Requirements: `git` + `python3` only. No npm/build tooling.
   the **900px cap** on full-width feature images (`img` + Luminaries `.hero-img` /
   `.break-img`), applied with `!important` so block styles don't override it.
 
+## Good to know / gotchas
+
+- **Version-only diffs are noise.** `build.py` stamps a fresh timestamp `v` into
+  every `manifest.json` + `site.json` on *every* run. If a build's only changes are
+  those `v:` lines (no `embeds/**/NN.html` changes), nothing substantive changed —
+  safe to discard, no need to commit. Only run `build.py` after you actually edit
+  `source/` (or `loader.js` / `build.py`).
+- **Two repos, one purpose.** This repo is self-contained. Its owner also keeps a
+  private `leah-project` repo (image library + originals archive) — you don't need
+  it; edit `source/` here.
+- **Editing without Claude Code (human path):** GitHub Desktop handles clone /
+  commit / push (buttons, no terminal). The only terminal step is `python3
+  build.py`, run from the repo folder (its path is machine-specific — in GitHub
+  Desktop use Repository → Show in Finder to locate it).
+- **Live/deploy check:** `curl -s https://claritydecoded.github.io/leah-embeds/site.json`
+  shows the currently-deployed version. Pages redeploys ~1 min after a push to `main`.
+- **Collaborator:** `lambchopstory` has write access.
+
 ## Verifying
 
 `index.html` (the control panel) and each `embeds/<slug>/NN.html` can be opened
