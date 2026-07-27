@@ -37,6 +37,14 @@
       try { parent.postMessage({ embedHeight: h }, "*"); } catch (_) {}
     }
   }
+  // Re-assert the current height even if unchanged. On tall/slow pages Framer may
+  // not be ready the instant we first post the final height; without a periodic
+  // re-assert the change-guard above would never post it again and the embed
+  // stays at 0. Cheap and idempotent.
+  function forceReport() {
+    lastReported = -1;
+    reportHeight();
+  }
 
   // Framer wraps HTML embeds in a body styled
   //   body{ display:flex; justify-content:center; align-items:center }
@@ -129,10 +137,11 @@
     for (var i = 0; i < mounts.length; i++) mount(mounts[i]);
     // Keep reporting height to the Framer host for a while as blocks/images
     // settle, then rely on the per-block message + resize handlers.
-    window.addEventListener("resize", reportHeight);
+    window.addEventListener("resize", forceReport);
+    window.addEventListener("load", forceReport);
     var t = 0, hi = setInterval(function () {
-      reportHeight();
-      if (++t > 50) clearInterval(hi);   // ~15s
+      forceReport();
+      if (++t > 100) clearInterval(hi);   // re-assert for ~30s while images settle
     }, 300);
   }
 
