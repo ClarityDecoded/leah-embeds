@@ -439,12 +439,20 @@ footer .credit a{color:var(--dust);text-decoration:underline;text-underline-offs
 <script>
 (function(){
   function H(){
-    var d=document, b=d.body, e=d.documentElement;
-    return Math.max(
-      b?b.scrollHeight:0, e.scrollHeight,
-      b?b.offsetHeight:0, e.offsetHeight,
-      b?Math.ceil(b.getBoundingClientRect().bottom):0
-    );
+    // Measure the CONTENT height from <body> only. Never use
+    // documentElement.scrollHeight: the root element's scrollHeight is clamped to
+    // at least the iframe/viewport height, so it over-reports short blocks and
+    // leaves large empty gaps below the content.
+    var b=document.body;
+    if(!b) return 0;
+    var h=Math.max(b.scrollHeight, b.offsetHeight);
+    // Defensive: include any in-flow child that overflows the body box.
+    var k=b.children;
+    for(var i=0;i<k.length;i++){
+      var bot=Math.ceil(k[i].getBoundingClientRect().bottom);
+      if(bot>h) h=bot;
+    }
+    return h;
   }
   var last=-1, lastW=-1;
   function post(){
