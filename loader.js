@@ -23,13 +23,31 @@
   var ROOT = me.src.replace(/loader\.js(?:\?.*)?$/, "");   // .../leah-embeds/
   var EMBEDS = ROOT + "embeds/";
 
-  // An iframe with width:100% can compute its CSS viewport width as 0 during
-  // the child's first layout, which collapses blocks sized in vw units (e.g. an
-  // image band using min(1020px,94vw) + aspect-ratio). Setting an explicit pixel
-  // width guarantees the child always sees a real viewport. We keep it in sync
-  // with the mount's width so it stays responsive.
+  // Framer wraps HTML embeds in a body styled
+  //   body{ display:flex; justify-content:center; align-items:center }
+  // which collapses our top-down, full-width block flow (the mount shrinks to its
+  // content and reports width 0). Force normal block flow so the mount fills the
+  // embed. Safe: this only touches the embed's own sandboxed document.
+  function neutralizeHost() {
+    try {
+      var b = document.body;
+      if (b) {
+        b.style.display = "block";
+        b.style.margin = "0";
+        b.style.width = "100%";
+      }
+    } catch (_) {}
+  }
+
+  // The true width to give each block iframe is the embed's viewport width. The
+  // mount can read 0 (flex-collapsed) before neutralizeHost lands, so prefer the
+  // document/viewport width and fall back to the mount. An explicit pixel width
+  // also guarantees vw-sized blocks (e.g. min(1020px,94vw)+aspect-ratio) never
+  // collapse the way a width:100% iframe can during first layout.
   function widthOf(el) {
-    return Math.round(el.clientWidth || el.getBoundingClientRect().width || window.innerWidth || 0);
+    var vw = document.documentElement.clientWidth || window.innerWidth || 0;
+    var ew = el ? (el.clientWidth || Math.round(el.getBoundingClientRect().width)) : 0;
+    return Math.round(Math.max(vw, ew) || 0);
   }
 
   function mount(el) {
@@ -39,6 +57,11 @@
     if (!slug) return;
     var dir = EMBEDS + slug + "/";
     var frames = [];
+
+    // Make the mount a full-width block regardless of Framer's flex wrapper.
+    el.style.display = "block";
+    el.style.width = "100%";
+    el.style.margin = "0";
 
     function syncWidths() {
       var w = widthOf(el);
@@ -84,6 +107,7 @@
   }
 
   function boot() {
+    neutralizeHost();
     var mounts = document.querySelectorAll("[data-cd-embed]");
     for (var i = 0; i < mounts.length; i++) mount(mounts[i]);
   }
