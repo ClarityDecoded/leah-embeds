@@ -1,0 +1,11 @@
+{
+  "slug": "events",
+  "title": "Events",
+  "v": "20260730032434",
+  "blocks": [
+    {
+      "file": "01.html",
+      "name": "Upcoming gatherings"
+    }
+  ]
+}

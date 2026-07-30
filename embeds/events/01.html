@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_top">
+<title>Events — Upcoming gatherings</title>
+<style>
+html,body{margin:0;padding:0;background:transparent;}
+/* Cap full-width feature images so they don't balloon on wide desktops.
+   Covers <img> elements (Deep Story / Soul Stories / Council) and the
+   background-image feature divs (Luminaries .hero-img / .break-img). */
+/* !important is needed: each block re-declares img{max-width:100%} later in
+   the body, which would otherwise win on source order. */
+img{max-width:min(100%,900px)!important;height:auto;}
+.hero-img,.break-img{max-width:900px!important;margin-left:auto!important;margin-right:auto!important;}
+:where(.hero,.hero__art,.earthplate,figure,.banner-figure) img{margin-left:auto;margin-right:auto;}
+</style>
+</head>
+<body>
+<!-- ===== BLOCK 1 — Upcoming gatherings ===== (page: events) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFECE5;
+    --ink:#23272C;
+    --ink-soft:#565E66;
+    --gold:#C9A44C;
+    --gold-deep:#9A7626;
+    --rust:#8E3B2A;
+    --rule:rgba(35,39,44,.14);
+    --display:'Cormorant Garamond',Garamond,serif;
+    --body:'Spectral',Georgia,serif;
+    --util:'Archivo',system-ui,sans-serif;
+    --gutter:clamp(1.25rem,5vw,3rem);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+  }
+  .events{
+    max-width:52rem;
+    margin:0 auto;
+    padding:clamp(2.5rem,6vw,4.5rem) var(--gutter);
+  }
+  .events__eyebrow{
+    font-family:var(--util);
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    font-size:12px;
+    color:var(--gold-deep);
+    text-align:center;
+    margin:0 0 .6rem;
+  }
+  .events__title{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(2rem,5vw,3rem);
+    line-height:1.1;
+    text-align:center;
+    margin:0 0 clamp(2rem,5vw,3.25rem);
+  }
+
+  .event{
+    padding:clamp(1.75rem,4vw,2.5rem) 0;
+    border-top:1px solid var(--rule);
+  }
+  .event:last-child{border-bottom:1px solid var(--rule);}
+
+  .event__date{
+    font-family:var(--util);
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:12.5px;
+    color:var(--gold-deep);
+    margin:0 0 .55rem;
+  }
+  .event__name{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(1.6rem,3.6vw,2.25rem);
+    line-height:1.12;
+    margin:0 0 .7rem;
+  }
+  .event__desc{
+    font-size:1.06rem;
+    line-height:1.62;
+    color:var(--ink-soft);
+    margin:0 0 1.15rem;
+    max-width:42rem;
+  }
+  .event__cta{
+    display:inline-flex;
+    align-items:center;
+    gap:.4em;
+    font-family:var(--util);
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--rust);
+    text-decoration:none;
+    border-bottom:1px solid var(--gold);
+    padding-bottom:2px;
+    transition:color .2s,border-color .2s;
+  }
+  .event__cta:hover{color:var(--gold-deep);border-color:var(--gold-deep);}
+  .event__cta .arrow{font-family:var(--body);}
+
+  .event__soon{
+    display:inline-block;
+    font-family:var(--util);
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    border:1px solid var(--rule);
+    border-radius:999px;
+    padding:.42em .95em;
+  }
+
+  /* Featured event with artwork */
+  .event--featured{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+    gap:clamp(1.25rem,4vw,2.5rem);
+    align-items:center;
+  }
+  .event__art{
+    width:100%;
+    aspect-ratio:1070/1088;
+    background:#E7E3DA url('https://claritydecoded.github.io/leah-embeds/assets/your-story-of-change.png') center / cover no-repeat;
+    border-radius:4px;
+  }
+  .event--featured .event__body{min-width:0;}
+  @media (max-width:640px){
+    .event--featured{grid-template-columns:1fr;}
+    .event__art{max-width:360px;margin:0 auto;order:-1;}
+  }
+</style>
+
+<div class="events">
+  <p class="events__eyebrow">School for Sacred Storytelling</p>
+  <h1 class="events__title">Upcoming Gatherings</h1>
+
+  <article class="event">
+    <p class="event__date">September 3</p>
+    <h2 class="event__name">Deep Story</h2>
+    <p class="event__desc">An intimate storytelling sanctuary to complete your stories: to publish, to perform, or simply for the pleasure of sharing.</p>
+    <a class="event__cta" href="https://schoolforsacredstorytelling.com/deep-story">Learn more <span class="arrow">&rarr;</span></a>
+  </article>
+
+  <article class="event">
+    <p class="event__date">August 28</p>
+    <h2 class="event__name">Soul Story Council</h2>
+    <p class="event__desc">A monthly Story Ceremony to stay in relationship with how stories move through our consciousness.</p>
+    <a class="event__cta" href="https://schoolforsacredstorytelling.com/soul-story-council">Learn more <span class="arrow">&rarr;</span></a>
+  </article>
+
+  <article class="event">
+    <p class="event__date">August 19</p>
+    <h2 class="event__name">Luminary Circle</h2>
+    <p class="event__desc">An intimate circle for people who are crossing a threshold and want to engage a deeper relationship with their Soul Story and Soul Compass.</p>
+    <a class="event__cta" href="https://schoolforsacredstorytelling.com/luminaries">Learn more <span class="arrow">&rarr;</span></a>
+  </article>
+
+  <article class="event event--featured">
+    <div class="event__art" role="img" aria-label="Your Story of Change artwork"></div>
+    <div class="event__body">
+      <p class="event__date">September 22</p>
+      <h2 class="event__name">Your Story of Change</h2>
+      <p class="event__desc">A 6-week program designed to support you through change.</p>
+      <span class="event__soon">Registration coming soon</span>
+    </div>
+  </article>
+
+  <article class="event">
+    <p class="event__date">August 10 &amp; 24</p>
+    <h2 class="event__name">Monthly Membership</h2>
+    <p class="event__desc">A regular creative practice with a supportive community.</p>
+    <span class="event__soon">Coming soon</span>
+  </article>
+</div>
+<!-- ===== leah-embeds height reporter ===== -->
+<script>
+(function(){
+  function H(){
+    // Measure the CONTENT height from <body> only. Never use
+    // documentElement.scrollHeight: the root element's scrollHeight is clamped to
+    // at least the iframe/viewport height, so it over-reports short blocks and
+    // leaves large empty gaps below the content.
+    var b=document.body;
+    if(!b) return 0;
+    var h=Math.max(b.scrollHeight, b.offsetHeight);
+    // Defensive: include any in-flow child that overflows the body box.
+    var k=b.children;
+    for(var i=0;i<k.length;i++){
+      var bot=Math.ceil(k[i].getBoundingClientRect().bottom);
+      if(bot>h) h=bot;
+    }
+    return h;
+  }
+  var last=-1, lastW=-1;
+  function post(){
+    var v=H(), w=document.documentElement.clientWidth;
+    // Re-post whenever height OR viewport width changes. Some blocks size purely
+    // from vw + aspect-ratio; if the iframe's width lands after first paint, the
+    // height must be recomputed once the real width arrives.
+    if(v!==last || w!==lastW){
+      last=v; lastW=w;
+      try{ parent.postMessage({cdBlock:true,h:v}, "*"); }catch(_){}
+    }
+  }
+  addEventListener("load", post);
+  addEventListener("resize", post);
+  if(window.ResizeObserver){
+    try{
+      var ro=new ResizeObserver(post);
+      ro.observe(document.body);
+      ro.observe(document.documentElement);   // catches width-driven relayout
+    }catch(_){}
+  }
+  // re-measure once every image has decoded (aspect-ratio/background swaps)
+  [].forEach.call(document.images, function(im){
+    if(!im.complete) im.addEventListener("load", post);
+  });
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(post); }
+  document.addEventListener("DOMContentLoaded", post);
+  // safety net for late images / async layout / delayed width (30s, tapering)
+  var n=0, iv=setInterval(function(){ post(); if(++n>60) clearInterval(iv); }, 500);
+})();
+</script>
+</body>
+</html>

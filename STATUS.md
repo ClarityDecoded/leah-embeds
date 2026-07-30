@@ -4,17 +4,21 @@
 > update "Current state" / "Known issues / watch list" as needed and add a dated
 > entry to the top of the Change log. Keep it short and factual.
 
-_Last updated: 2026-07-27_
+_Last updated: 2026-07-29_
 
 ## What this is
-Content host for the 4 Framer embeds on schoolforsacredstorytelling.com. Framer
+Content host for the Framer embeds on schoolforsacredstorytelling.com. Framer
 pages hold a one-line loader; content lives here and deploys via GitHub Pages.
 See `README.md` (full workflow) and `CLAUDE.md` (rules).
 
 ## Current state — LIVE & healthy
-- All 4 pages render correctly on the live site, desktop + mobile:
+- 5 pages, desktop + mobile:
   `/deep-story` (10 blocks), `/luminaries` (17), `/soul-stories` (17),
-  `/soul-story-council` (11). 55 blocks total.
+  `/soul-story-council` (11), `/events` (1). 56 blocks total.
+- `events` is a new single-module page (upcoming gatherings list). Its featured
+  artwork is hosted in-repo at `assets/your-story-of-change.png` (served from
+  GitHub Pages), not framerusercontent. Framer needs the loader snippet
+  `<div data-cd-embed="events"></div>` added to its Events page.
 - Deployed build version `v`: **20260727042143** (run
   `curl -s https://claritydecoded.github.io/leah-embeds/site.json` for current).
 - Repo is clean and in sync with `origin/main`; nothing pending.
@@ -44,6 +48,16 @@ See `README.md` (full workflow) and `CLAUDE.md` (rules).
   `<style>` (per-block head styles + image cap).
 
 ## Change log (newest first)
+- **2026-07-29** — New `events` page/slug: single "Upcoming Gatherings" module
+  listing Deep Story, Soul Story Council, Luminary Circle, Your Story of Change
+  (featured, artwork `assets/your-story-of-change.png`, "coming soon"), and
+  Monthly Membership ("coming soon"). Registered slug in `build.py`; added
+  `assets/`. Also on 07-29: Luminary CTAs → discovery-session booking link;
+  Luminary tuition $1,777→$1,333; Earth Altars credit added to Luminary + Council
+  footers; reduced Luminary tree-of-life (500→300px) and ginkgo mandala (−40%);
+  Council banner → "We gather on the full moon" (price removed); Council schedule
+  reworked to Full Moon dates + "next gathers on the full moon"; Ariel Spilsbury
+  quote reworded on Soul Stories + Luminaries.
 - **2026-07-27** — Docs refresh for smooth handoff: added "Good to know / gotchas"
   to `CLAUDE.md` (version-only diffs are noise & safe to discard; GitHub Desktop +
   terminal path; live-version check) and synced this file.

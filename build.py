@@ -27,6 +27,7 @@ PAGES = {
     "luminaries":         "Luminary Circles",
     "soul-stories":       "Soul Stories",
     "soul-story-council": "Soul Story Council",
+    "events":             "Events",
 }
 
 START = re.compile(r'<!--\s*=+\s*BLOCK\s+(\d+)\s*[—–-]\s*(.*?)\s*=+\s*-->', re.S)

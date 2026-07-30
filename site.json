@@ -1,5 +1,5 @@
 {
-  "v": "20260730031826",
+  "v": "20260730032434",
   "pages": {
     "deep-story": {
       "title": "Deep Story",
@@ -16,6 +16,10 @@
     "soul-story-council": {
       "title": "Soul Story Council",
       "count": 11
+    },
+    "events": {
+      "title": "Events",
+      "count": 1
     }
   }
 }
