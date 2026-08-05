@@ -73,6 +73,34 @@
     return Math.round(Math.max(vw, ew) || 0);
   }
 
+  // --- Space reservation ---------------------------------------------------
+  // The blocks load asynchronously (manifest fetch, then one HTML fetch per
+  // iframe), so the mount is ~0px tall for a beat after the Framer page has
+  // already painted. Framer then lays out its footer directly under the nav and
+  // shoves it down when our content finally arrives — the "footer first, then
+  // the embed appears" flash the user sees. To avoid it we reserve the embed's
+  // height up front: instantly from the height we cached on the last visit, or
+  // (first visit) from a per-block estimate once the manifest count is known.
+  // Then we settle to the exact height and re-cache it. Cache is keyed by slug +
+  // a coarse width bucket so each Framer breakpoint keeps its own estimate.
+  var AVG_BLOCK = 950;   // px, first-visit-only fallback per block
+  // Bucket by viewport width so each Framer breakpoint keeps its own cached
+  // height. Prefer window.innerWidth: it's stable from first paint, whereas
+  // documentElement.clientWidth can read a transient value mid-layout — which
+  // would make the read key (at mount) and write key (at settle) disagree and
+  // miss the cache on every visit.
+  function widthBucket() {
+    var w = window.innerWidth || document.documentElement.clientWidth || 1000;
+    return Math.round(w / 50) * 50;
+  }
+  function readCache(key) {
+    try { return parseInt(localStorage.getItem(key) || "0", 10) || 0; }
+    catch (_) { return 0; }
+  }
+  function writeCache(key, h) {
+    try { if (h > 0) localStorage.setItem(key, String(h)); } catch (_) {}
+  }
+
   function mount(el) {
     if (el.__cdInit) return;
     el.__cdInit = true;
@@ -85,6 +113,18 @@
     el.style.display = "block";
     el.style.width = "100%";
     el.style.margin = "0";
+
+    // Reserve height immediately from the last visit's cached height (exact on
+    // repeat visits at this width), so the footer doesn't render under the nav
+    // and then jump. Refined below once the manifest count is known / blocks load.
+    function reserve(px) {
+      if (px > 0) { el.style.minHeight = px + "px"; forceReport(); }
+    }
+    // Compute the cache key once so the read here and every write below use the
+    // same key even if the viewport nudges during load.
+    var cacheKey = "cdH:" + slug + ":" + widthBucket();
+    var cachedH = readCache(cacheKey);
+    if (cachedH) reserve(cachedH);
 
     function syncWidths() {
       var w = widthOf(el);
@@ -105,7 +145,27 @@
         return r.json();
       })
       .then(function (m) {
-        (m.blocks || []).forEach(function (b) {
+        var blocks = m.blocks || [];
+        // First visit (nothing cached yet): reserve a rough estimate from the
+        // block count so the footer still starts low while blocks stream in.
+        if (!cachedH) reserve(blocks.length * AVG_BLOCK);
+
+        var reported = {};   // frame index -> reported at least once
+        var finalized = false;
+        function maybeFinalize() {
+          if (finalized) return;
+          for (var i = 0; i < frames.length; i++) {
+            if (!reported[i]) return;   // still waiting on a block
+          }
+          finalized = true;
+          // All blocks have their true height now: drop the reservation so the
+          // page matches actual content exactly, cache it for next time, report.
+          el.style.minHeight = "";
+          forceReport();
+          writeCache(cacheKey, document.body ? document.body.scrollHeight : 0);
+        }
+
+        blocks.forEach(function (b, idx) {
           var frame = document.createElement("iframe");
           frame.src = dir + b.file + "?v=" + encodeURIComponent(m.v || "");
           frame.title = (m.title || slug) + " — " + (b.name || b.file);
@@ -119,7 +179,11 @@
           window.addEventListener("message", function (e) {
             if (e.source === frame.contentWindow && e.data && e.data.cdBlock) {
               frame.style.height = e.data.h + "px";
+              reported[idx] = true;
               reportHeight();
+              maybeFinalize();
+              // Keep the cache fresh as late-loading images settle taller.
+              if (finalized) writeCache(cacheKey, document.body ? document.body.scrollHeight : 0);
             }
           });
         });

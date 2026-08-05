@@ -4,7 +4,7 @@
 > update "Current state" / "Known issues / watch list" as needed and add a dated
 > entry to the top of the Change log. Keep it short and factual.
 
-_Last updated: 2026-07-29_
+_Last updated: 2026-08-04_
 
 ## What this is
 Content host for the Framer embeds on schoolforsacredstorytelling.com. Framer
@@ -35,6 +35,10 @@ See `README.md` (full workflow) and `CLAUDE.md` (rules).
 - None open.
 - Watch: on a fresh load, top hero/banner images can flash blank for a beat while
   the framerusercontent.com CDN image loads — cosmetic, self-resolves.
+- Watch: `loader.js` now RESERVES the embed's height up front (see change log
+  2026-08-04). First-ever visit at a given width still shows a brief estimate
+  (block count × 950px) before settling; repeat visits reserve the exact cached
+  height instantly. Cache is per-slug + viewport-width bucket in localStorage.
 
 ## Open ideas / possible next steps (not started)
 - Optionally tune the 900px image cap (tighter ~760px, or exclude the Soul Stories
@@ -48,6 +52,19 @@ See `README.md` (full workflow) and `CLAUDE.md` (rules).
   `<style>` (per-block head styles + image cap).
 
 ## Change log (newest first)
+- **2026-08-04** — Fixed the "footer appears first, then the embed loads and
+  shoves it down" flash on the embed pages (Soul Stories et al.), reported on all
+  devices. `loader.js` now reserves the embed's vertical height BEFORE the blocks
+  load, so Framer lays the footer out in the right place from first paint:
+  instantly from a per-slug + viewport-width height cached in localStorage on the
+  previous visit (exact), or on a first visit from a block-count × 950px estimate
+  once the manifest arrives. On settle it drops the reservation to the exact
+  content height and re-caches. Loader-only change (no `build.py` run / no
+  version bump needed). Gotcha found & fixed during this work: the width bucket
+  must come from `window.innerWidth` (stable) not `documentElement.clientWidth`
+  (reads a transient value mid-layout), and the cache key is captured once at
+  mount so the read and write keys always agree — otherwise the cache missed
+  every visit.
 - **2026-07-29** — New `events` page/slug: single "Upcoming Gatherings" module
   listing Deep Story, Soul Story Council, Luminary Circle, Your Story of Change
   (featured, artwork `assets/your-story-of-change.png`, "coming soon"), and
