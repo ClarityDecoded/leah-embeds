@@ -1,0 +1,97 @@
+{
+  "_README": "SINGLE SOURCE OF TRUTH for the School for Sacred Storytelling /events page. Edit this file, commit, push to ClarityDecoded/leah-embeds. The Framer page reads it live within a minute. Dates are YYYY-MM-DD (local). Past occurrences and events past 'hideAfter' drop off automatically. See EVENTS-README.md.",
+  "updated": "2026-10-29",
+  "events": [
+    {
+      "name": "Gatherings for Change",
+      "description": "A Sacred Storytelling Tour — an evening of stories, song, and reflection that carries The Little Book of Change off the page and into the room.",
+      "learnMoreUrl": "https://thelittlebookofchange.com/events",
+      "occurrences": [
+        {
+          "date": "2026-10-29",
+          "label": "Sisters, OR",
+          "sublabel": "Paulina Springs Books, 252 W Hood Ave · 6–8 pm",
+          "url": "https://events.humanitix.com/a-gathering-for-change"
+        },
+        {
+          "date": "2026-11-01",
+          "label": "Nelson, BC",
+          "sublabel": "6724 Harrop Procter Rd · 4–6 pm",
+          "url": "https://events.humanitix.com/an-evening-of-stories-and-change-in-nelson"
+        },
+        {
+          "date": "2026-11-04",
+          "label": "Bowen Island, BC",
+          "sublabel": "Address with RSVP · 6:30–8:30 pm",
+          "url": "https://events.humanitix.com/an-evening-of-stories-and-change-on-bowen-island"
+        },
+        {
+          "date": "2026-11-06",
+          "label": "Orcas Island, WA",
+          "sublabel": "Venue TBA · Evening",
+          "url": "https://buytickets.at/leahlamb/2494070"
+        },
+        {
+          "date": "2026-11-12",
+          "label": "Portland, OR",
+          "sublabel": "TaborSpace, 5441 SE Belmont St · Evening",
+          "url": "https://buytickets.at/leahlamb/2494094"
+        },
+        {
+          "date": "2026-11-15",
+          "label": "Ashland, OR",
+          "sublabel": "White Rabbit Clubhouse, 5 N Main St · 5–7 pm",
+          "url": "https://whiterabbitashland.com/event/a-gathering-of-change-book-reading-2026-11-15-1700"
+        },
+        {
+          "date": "2026-11-18",
+          "label": "Nevada City, CA",
+          "sublabel": "Private home (address with RSVP) · 6:30–8:30 pm",
+          "url": "https://www.tickettailor.com/events/leahlamb/2494103"
+        },
+        {
+          "date": "2026-11-19",
+          "label": "Nicasio, CA",
+          "sublabel": "Solstice Grove, 550 Nicasio Valley Rd · 7–9 pm",
+          "url": "https://www.tickettailor.com/events/leahlamb/2494111"
+        },
+        {
+          "date": "2026-11-22",
+          "label": "Berkeley, CA",
+          "sublabel": "Private home (address with RSVP) · 6–8 pm",
+          "url": "https://buytickets.at/leahlamb/2494119"
+        },
+        {
+          "date": "2026-11-29",
+          "label": "Ojai, CA",
+          "sublabel": "Topa Institute · 2–5 pm",
+          "url": "https://www.tickettailor.com/events/leahlamb/2495035"
+        },
+        {
+          "date": "2026-12-03",
+          "label": "Topanga, CA",
+          "sublabel": "Butterfly Mountain · 6:30–8:30 pm",
+          "url": "https://www.tickettailor.com/events/leahlamb/2494124"
+        }
+      ]
+    },
+    {
+      "name": "Change Your Story, Change Your Life",
+      "description": "A 1-day New Year retreat — a creative intensive in engaging story as a healing art, to help you navigate these times as a Sacred Storyteller.",
+      "start": "2027-01-10",
+      "timeText": "10am–6pm PST",
+      "hideAfter": "2027-01-11",
+      "registerNowUrl": "https://schoolforsacredstorytelling.com/change",
+      "ctaLabel": "Register"
+    },
+    {
+      "name": "Myth, Magic & Medicine",
+      "description": "An online creative retreat — claim your myths, know your magic, give your medicine. A sacred storytelling class with Leah Lamb.",
+      "start": "2027-01-17",
+      "timeText": "10am–7pm PST",
+      "hideAfter": "2027-01-18",
+      "registerNowUrl": "https://schoolforsacredstorytelling.com/mythmagicmedicine-2027",
+      "ctaLabel": "Register"
+    }
+  ]
+}
