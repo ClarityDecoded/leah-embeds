@@ -400,7 +400,10 @@ const EventCard: React.FC<{
                                             </span>
                                         </div>
 
-                                        <div style={occMainStyle}>
+                                        <div
+                                            className="ssg-occ-main"
+                                            style={occMainStyle}
+                                        >
                                             {o.label &&
                                                 (hasDetail ? (
                                                     <div style={occCityStyle}>
@@ -621,23 +624,33 @@ export default function EventList(props: EventListProps) {
                 @media (max-width: 700px) {
                     .ssg-row { flex-direction: column !important; }
                     .ssg-image { flex-basis: auto !important; width: 100% !important; }
-                    /* Stack each schedule row: date line, city, venue, button. */
+                    /* Compact schedule row: date + Register share the top line,
+                       city + venue sit on the line below. */
                     .ssg-occ {
-                        flex-direction: column !important;
-                        align-items: flex-start !important;
-                        gap: 10px !important;
-                        padding: 18px 0 !important;
+                        flex-wrap: wrap !important;
+                        align-items: center !important;
+                        gap: 6px 12px !important;
+                        padding: 15px 0 !important;
                     }
                     .ssg-occ-date {
+                        order: 1 !important;
                         flex-direction: row !important;
                         align-items: baseline !important;
                         width: auto !important;
                         border-right: none !important;
                         padding-right: 0 !important;
                         margin-right: 0 !important;
-                        gap: 10px !important;
+                        gap: 8px !important;
                     }
-                    .ssg-occ-cta { margin-left: 0 !important; }
+                    .ssg-occ-cta {
+                        order: 2 !important;
+                        margin-left: auto !important;
+                        padding: 7px 16px !important;
+                    }
+                    .ssg-occ-main {
+                        order: 3 !important;
+                        flex: 1 1 100% !important;
+                    }
                     .ssg-image { max-width: 320px !important; }
                     .ssg-reg-col {
                         width: auto !important;
