@@ -194,37 +194,29 @@ const EventCard: React.FC<{
               transition: { duration: 0.5 },
           }
 
-    // Single events: image on the left, text middle, Register right. Scheduled
-    // events (a tour): image as a lead on top, then the full-width date rail.
-    const rowStyle: React.CSSProperties = hasSchedule
-        ? {
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              padding: "48px 0",
-          }
-        : {
-              display: "flex",
-              gap: "48px",
-              alignItems: "flex-start",
-              padding: "48px 0",
-          }
+    // Every event uses the same row: image on the left, text/schedule to the
+    // right. Single events also get a Register button in the far-right column.
+    const rowStyle: React.CSSProperties = {
+        display: "flex",
+        gap: "48px",
+        alignItems: "flex-start",
+        padding: "48px 0",
+    }
 
     const imageFrameStyle: React.CSSProperties = {
         flex: "0 0 auto",
-        width: hasSchedule
-            ? "clamp(200px, 38%, 280px)"
-            : "clamp(240px, 34%, 340px)",
+        width: "clamp(240px, 34%, 340px)",
         background: styles.imageFrameColor,
         padding: "18px",
         boxSizing: "border-box",
     }
 
+    // Square frame, cropped to fill — keeps every event's image a consistent tile.
     const imageStyle: React.CSSProperties = {
         width: "100%",
-        height: "auto",
+        aspectRatio: "1 / 1",
         display: "block",
-        objectFit: "contain",
+        objectFit: "cover",
     }
 
     const contentStyle: React.CSSProperties = {
