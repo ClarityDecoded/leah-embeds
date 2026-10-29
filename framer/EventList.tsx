@@ -381,7 +381,10 @@ const EventCard: React.FC<{
                                         className="ssg-occ"
                                         style={occRowStyle}
                                     >
-                                        <div style={occDateColStyle}>
+                                        <div
+                                            className="ssg-occ-date"
+                                            style={occDateColStyle}
+                                        >
                                             <span style={occWeekdayStyle}>
                                                 {weekdayShort(d)}
                                             </span>
@@ -611,8 +614,23 @@ export default function EventList(props: EventListProps) {
                 @media (max-width: 700px) {
                     .ssg-row { flex-direction: column !important; }
                     .ssg-image { flex-basis: auto !important; width: 100% !important; }
-                    .ssg-occ { flex-wrap: wrap !important; }
-                    .ssg-occ-cta { margin-left: 90px !important; }
+                    /* Stack each schedule row: date line, city, venue, button. */
+                    .ssg-occ {
+                        flex-direction: column !important;
+                        align-items: flex-start !important;
+                        gap: 10px !important;
+                        padding: 18px 0 !important;
+                    }
+                    .ssg-occ-date {
+                        flex-direction: row !important;
+                        align-items: baseline !important;
+                        width: auto !important;
+                        border-right: none !important;
+                        padding-right: 0 !important;
+                        margin-right: 0 !important;
+                        gap: 10px !important;
+                    }
+                    .ssg-occ-cta { margin-left: 0 !important; }
                 }
                 `}
             </style>
