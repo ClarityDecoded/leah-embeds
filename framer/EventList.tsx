@@ -103,6 +103,19 @@ const getHideAfter = (e: EventProps): Date | null => {
 const isValid = (d: Date | null): d is Date =>
     d instanceof Date && !isNaN(d.getTime())
 
+// Links to a DIFFERENT site open in a new tab; same-site links navigate in
+// place. Returns the target/rel props to spread onto an <a>.
+const linkTargetAttrs = (href?: string) => {
+    if (!href) return {}
+    try {
+        const u = new URL(href, window.location.href)
+        if (u.hostname && u.hostname !== window.location.hostname) {
+            return { target: "_blank", rel: "noopener noreferrer" }
+        }
+    } catch (_) {}
+    return {}
+}
+
 const startOfToday = (): Date => {
     const t = new Date()
     t.setHours(0, 0, 0, 0)
@@ -407,6 +420,7 @@ const EventCard: React.FC<{
                                                 className="ssg-occ-cta"
                                                 href={o.url}
                                                 style={occRegisterStyle}
+                                                {...linkTargetAttrs(o.url)}
                                             >
                                                 Register
                                             </a>
@@ -428,6 +442,7 @@ const EventCard: React.FC<{
                                     border: `1px solid ${styles.linkColor}`,
                                     color: styles.linkColor,
                                 }}
+                                {...linkTargetAttrs(registerNowUrl)}
                             >
                                 {ctaLabel || "Register now"}
                             </a>
@@ -446,7 +461,11 @@ const EventCard: React.FC<{
                         )}
 
                         {learnMoreUrl && (
-                            <a href={learnMoreUrl} style={learnMoreStyle}>
+                            <a
+                                href={learnMoreUrl}
+                                style={learnMoreStyle}
+                                {...linkTargetAttrs(learnMoreUrl)}
+                            >
                                 <span
                                     style={{
                                         borderBottom: `1px solid ${styles.linkColor}`,
