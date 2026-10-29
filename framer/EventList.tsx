@@ -194,16 +194,27 @@ const EventCard: React.FC<{
               transition: { duration: 0.5 },
           }
 
-    const rowStyle: React.CSSProperties = {
-        display: "flex",
-        gap: "48px",
-        alignItems: "center",
-        padding: "48px 0",
-    }
+    // Single events: image on the left, text middle, Register right. Scheduled
+    // events (a tour): image as a lead on top, then the full-width date rail.
+    const rowStyle: React.CSSProperties = hasSchedule
+        ? {
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              padding: "48px 0",
+          }
+        : {
+              display: "flex",
+              gap: "48px",
+              alignItems: "flex-start",
+              padding: "48px 0",
+          }
 
     const imageFrameStyle: React.CSSProperties = {
         flex: "0 0 auto",
-        width: "clamp(240px, 34%, 340px)",
+        width: hasSchedule
+            ? "clamp(200px, 38%, 280px)"
+            : "clamp(240px, 34%, 340px)",
         background: styles.imageFrameColor,
         padding: "18px",
         boxSizing: "border-box",
@@ -246,6 +257,7 @@ const EventCard: React.FC<{
         display: "inline-flex",
         alignItems: "center",
         gap: "8px",
+        marginTop: "6px",
         color: styles.linkColor,
         textDecoration: "none",
         ...styles.buttonFont,
@@ -261,11 +273,14 @@ const EventCard: React.FC<{
         ...styles.buttonFont,
     }
 
-    const ctaGroupStyle: React.CSSProperties = {
+    // Register sits in a fixed right-hand column so every event's Register
+    // button lines up on the right edge (matching the per-row tour buttons).
+    const regColStyle: React.CSSProperties = {
+        flex: "0 0 auto",
+        width: "clamp(130px, 16%, 164px)",
         display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        gap: "16px",
+        justifyContent: "flex-end",
+        alignSelf: "center",
     }
 
     // Multi-date schedule (tour rail / moon-phase) styles.
@@ -435,54 +450,54 @@ const EventCard: React.FC<{
                     </div>
                 )}
 
-                {(learnMoreUrl || registerNowUrl || ctaLabel) && (
-                    <div style={ctaGroupStyle}>
-                        {registerNowUrl ? (
-                            <a
-                                href={registerNowUrl}
-                                style={{
-                                    ...pillBase,
-                                    border: `1px solid ${styles.linkColor}`,
-                                    color: styles.linkColor,
-                                }}
-                                {...linkTargetAttrs(registerNowUrl)}
-                            >
-                                {ctaLabel || "Register now"}
-                            </a>
-                        ) : (
-                            ctaLabel && (
-                                <span
-                                    style={{
-                                        ...pillBase,
-                                        border: `1px solid ${styles.dividerColor}`,
-                                        color: styles.accentColor,
-                                    }}
-                                >
-                                    {ctaLabel}
-                                </span>
-                            )
-                        )}
-
-                        {learnMoreUrl && (
-                            <a
-                                href={learnMoreUrl}
-                                style={learnMoreStyle}
-                                {...linkTargetAttrs(learnMoreUrl)}
-                            >
-                                <span
-                                    style={{
-                                        borderBottom: `1px solid ${styles.linkColor}`,
-                                        paddingBottom: "2px",
-                                    }}
-                                >
-                                    Learn more
-                                </span>
-                                <span>→</span>
-                            </a>
-                        )}
-                    </div>
+                {/* Learn more — left column, under the text / schedule. */}
+                {learnMoreUrl && (
+                    <a
+                        href={learnMoreUrl}
+                        style={learnMoreStyle}
+                        {...linkTargetAttrs(learnMoreUrl)}
+                    >
+                        <span
+                            style={{
+                                borderBottom: `1px solid ${styles.linkColor}`,
+                                paddingBottom: "2px",
+                            }}
+                        >
+                            Learn more
+                        </span>
+                        <span>→</span>
+                    </a>
                 )}
             </div>
+
+            {/* Register — right-hand column (tour events use per-row buttons). */}
+            {!hasSchedule && (registerNowUrl || ctaLabel) && (
+                <div className="ssg-reg-col" style={regColStyle}>
+                    {registerNowUrl ? (
+                        <a
+                            href={registerNowUrl}
+                            style={{
+                                ...pillBase,
+                                border: `1px solid ${styles.linkColor}`,
+                                color: styles.linkColor,
+                            }}
+                            {...linkTargetAttrs(registerNowUrl)}
+                        >
+                            {ctaLabel || "Register now"}
+                        </a>
+                    ) : (
+                        <span
+                            style={{
+                                ...pillBase,
+                                border: `1px solid ${styles.dividerColor}`,
+                                color: styles.accentColor,
+                            }}
+                        >
+                            {ctaLabel}
+                        </span>
+                    )}
+                </div>
+            )}
         </motion.article>
     )
 }
@@ -631,6 +646,13 @@ export default function EventList(props: EventListProps) {
                         gap: 10px !important;
                     }
                     .ssg-occ-cta { margin-left: 0 !important; }
+                    .ssg-image { max-width: 320px !important; }
+                    .ssg-reg-col {
+                        width: auto !important;
+                        justify-content: flex-start !important;
+                        align-self: flex-start !important;
+                        margin-top: 4px !important;
+                    }
                 }
                 `}
             </style>

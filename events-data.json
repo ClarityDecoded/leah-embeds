@@ -5,6 +5,10 @@
     {
       "name": "Gatherings for Change",
       "description": "A Sacred Storytelling Tour — an evening of stories, song, and reflection that carries The Little Book of Change off the page and into the room.",
+      "image": {
+        "src": "https://thelittlebookofchange.com/images/img-69ee9bd721.webp",
+        "alt": "The Little Book of Change — book cover"
+      },
       "learnMoreUrl": "https://thelittlebookofchange.com/events",
       "occurrences": [
         {
@@ -81,6 +85,11 @@
       "start": "2027-01-10",
       "timeText": "10am–6pm",
       "hideAfter": "2027-01-11",
+      "image": {
+        "src": "https://framerusercontent.com/images/zDqC3efcSeLVRrbNWdVUE0B9I.webp",
+        "alt": "Woven threads of change"
+      },
+      "learnMoreUrl": "https://schoolforsacredstorytelling.com/change",
       "registerNowUrl": "https://webweaving-llc.thrivecart.com/the-little-book-of-change-6-week/",
       "ctaLabel": "Register"
     },
@@ -90,6 +99,11 @@
       "start": "2027-01-17",
       "timeText": "10am–7pm",
       "hideAfter": "2027-01-18",
+      "image": {
+        "src": "https://framerusercontent.com/images/mSsYPxtWXL6BlidzAhsXjCRLo.png",
+        "alt": "Myth, Magic & Medicine — night tree"
+      },
+      "learnMoreUrl": "https://schoolforsacredstorytelling.com/mythmagicmedicine-2027",
       "registerNowUrl": "https://webweaving-llc.thrivecart.com/myth-magic-medicine-live-1-day-workshop/",
       "ctaLabel": "Register"
     }
