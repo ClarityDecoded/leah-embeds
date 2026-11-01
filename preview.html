@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Events preview — Upcoming Gatherings</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Spectral:wght@300;400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFECE5; --ink:#2E2A24; --body-ink:#6B655D;
+    --accent:#9A8253; --link:#9C4A2E; --rule:rgba(46,42,36,0.14); --frame:#F3EEE2;
+    --display:'Cormorant Garamond',Georgia,serif;
+    --body:'Spectral',Georgia,serif;
+    --util:'Archivo',system-ui,sans-serif;
+  }
+  body{margin:0;background:var(--paper);color:var(--body-ink);font-family:var(--body);-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1040px;margin:0 auto;padding:56px 24px;box-sizing:border-box;}
+  .eyebrow{text-align:center;text-transform:uppercase;letter-spacing:.22em;color:var(--accent);font-family:var(--util);font-weight:600;font-size:12px;margin:0 0 12px;}
+  .title{text-align:center;color:var(--ink);font-family:var(--display);font-weight:400;font-size:44px;line-height:1.1;margin:0 0 8px;}
+  hr{border:none;border-top:1px solid var(--rule);margin:0;}
+  .ev{display:flex;gap:48px;align-items:flex-start;padding:48px 0;}
+  .ev__img{flex:0 0 auto;width:clamp(240px,34%,340px);background:var(--frame);padding:18px;box-sizing:border-box;}
+  .ev__img img{width:100%;aspect-ratio:1/1;display:block;object-fit:cover;}
+  .ev__content{flex:1 1 auto;min-width:0;}
+  .ev__date{text-transform:uppercase;letter-spacing:.16em;color:var(--accent);font-family:var(--util);font-weight:600;font-size:12px;margin:0 0 14px;}
+  .ev__name{color:var(--ink);font-family:var(--display);font-weight:400;font-size:30px;line-height:1.15;margin:0 0 14px;}
+  .ev__desc{color:var(--body-ink);font-family:var(--body);font-size:17px;line-height:1.6;margin:0 0 22px;max-width:48ch;}
+  .learn{display:inline-flex;align-items:center;gap:8px;margin-top:6px;color:var(--link);text-decoration:none;font-family:var(--util);font-weight:600;font-size:12px;}
+  .learn span:first-child{border-bottom:1px solid var(--link);padding-bottom:2px;}
+  .regcol{flex:0 0 auto;width:clamp(130px,16%,164px);display:flex;justify-content:flex-end;align-self:center;}
+  .pill{display:inline-block;border-radius:999px;padding:9px 20px;text-transform:uppercase;letter-spacing:.12em;text-decoration:none;font-family:var(--util);font-weight:600;font-size:12px;border:1px solid var(--link);color:var(--link);white-space:nowrap;}
+  .sched{margin:6px 0 10px;}
+  .occ{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:20px 0;}
+  .occ__date{flex:0 0 auto;width:72px;display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--rule);padding-right:18px;margin-right:6px;}
+  .occ__wd{font-family:var(--util);font-weight:600;font-size:12px;color:var(--accent);letter-spacing:.16em;}
+  .occ__day{font-family:var(--display);font-weight:500;color:var(--link);font-size:22px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;}
+  .occ__main{flex:1 1 auto;min-width:0;}
+  .occ__city{font-family:var(--display);font-weight:500;color:var(--ink);font-size:20px;line-height:1.2;text-transform:uppercase;letter-spacing:.04em;}
+  .occ__venue{font-family:var(--body);color:var(--body-ink);font-size:15px;margin-top:4px;}
+  @media(max-width:700px){
+    .ev{flex-direction:column;gap:20px;padding:34px 0;}
+    .ev__img{width:100%;max-width:320px;}
+    .occ{flex-wrap:wrap;align-items:center;gap:6px 12px;padding:15px 0;}
+    .occ__date{order:1;flex-direction:row;align-items:baseline;width:auto;border-right:none;padding-right:0;margin-right:0;gap:6px;white-space:nowrap;}
+    .occ__date .occ__day{font-size:18px;}
+    .occ>.pill{order:2;margin-left:auto;padding:6px 14px;font-size:11px;letter-spacing:.08em;white-space:nowrap;}
+    .occ__main{order:3;flex:1 1 100%;}
+    .regcol{width:auto;justify-content:flex-start;align-self:flex-start;margin-top:4px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+<script id="events-json" type="application/json">
+__EVENTS_JSON__
+</script>
+<script>
+const data = JSON.parse(document.getElementById('events-json').textContent);
+const startOfToday=()=>{const t=new Date();t.setHours(0,0,0,0);return t;};
+const parse=(iso)=>{if(!iso)return null;const[y,m,d]=iso.split('T')[0].split('-').map(Number);if(!y||!m||!d)return null;return new Date(y,m-1,d);};
+const wd=(d)=>d.toLocaleDateString('en-US',{weekday:'short'}).toUpperCase();
+const md=(d)=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase();
+const monthDay=(d)=>d.toLocaleDateString('en-US',{month:'long',day:'numeric'});
+const SUFFIX='PT';
+const fut=(e)=>{const t=startOfToday().getTime();return (e.occurrences||[]).map(o=>({...o,d:parse(o.date)})).filter(o=>o.d&&o.d.getTime()>=t).sort((a,b)=>a.d-b.d);};
+const dateLabel=(e)=>{const s=parse(e.start);if(!s)return '';let l=monthDay(s);const tt=(e.timeText||'').trim();if(tt)l+=' · '+(tt+' '+SUFFIX).trim();return l;};
+const now=new Date();
+const vis=(data.events||[]).filter(e=>{
+  if(e.hideAfter){const h=new Date(e.hideAfter.replace(' ','T'));if(!isNaN(h)&&h<=now)return false;}
+  if((e.occurrences||[]).length>0&&fut(e).length===0)return false;
+  return true;
+});
+const root=document.getElementById('root');
+root.innerHTML='<p class="eyebrow">School for Sacred Storytelling</p><h1 class="title">Upcoming Gatherings</h1><hr style="margin-top:36px">';
+const learn=(e)=>e.learnMoreUrl?'<a class="learn" href="'+e.learnMoreUrl+'"><span>Learn more</span><span>→</span></a>':'';
+vis.forEach(e=>{
+  const occ=fut(e);const hasS=occ.length>0;
+  let img=e.image&&e.image.src?'<div class="ev__img"><img src="'+e.image.src+'" alt="'+(e.image.alt||'')+'"></div>':'';
+  let c='<div class="ev__content">';
+  if(!hasS&&dateLabel(e))c+='<div class="ev__date">'+dateLabel(e).toUpperCase()+'</div>';
+  c+='<div class="ev__name">'+e.name+'</div>';
+  if(e.description)c+='<div class="ev__desc">'+e.description+'</div>';
+  if(hasS){
+    c+='<div class="sched">';
+    occ.forEach((o,i)=>{
+      if(i>0)c+='<hr>';
+      c+='<div class="occ"><div class="occ__date"><span class="occ__wd">'+wd(o.d)+'</span><span class="occ__day">'+md(o.d)+'</span></div><div class="occ__main"><div class="occ__city">'+(o.label||'')+'</div>'+(o.sublabel?'<div class="occ__venue">'+o.sublabel+'</div>':'')+'</div>'+(o.url?'<a class="pill" href="'+o.url+'">Register</a>':'')+'</div>';
+    });
+    c+='</div>';
+  }
+  c+=learn(e);
+  c+='</div>';
+  let reg='';
+  if(!hasS&&(e.registerNowUrl||e.ctaLabel)){
+    reg=e.registerNowUrl?'<div class="regcol"><a class="pill" href="'+e.registerNowUrl+'">'+(e.ctaLabel||'Register now')+'</a></div>':'<div class="regcol"><span class="pill" style="border-color:var(--rule);color:var(--accent)">'+e.ctaLabel+'</span></div>';
+  }
+  root.insertAdjacentHTML('beforeend','<div class="ev">'+img+c+reg+'</div><hr>');
+});
+</script>
+</body>
+</html>

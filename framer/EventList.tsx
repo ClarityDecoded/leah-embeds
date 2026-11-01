@@ -640,12 +640,19 @@ export default function EventList(props: EventListProps) {
                         border-right: none !important;
                         padding-right: 0 !important;
                         margin-right: 0 !important;
-                        gap: 8px !important;
+                        gap: 6px !important;
+                        white-space: nowrap !important;
                     }
+                    /* Shrink the big day numeral so even two-digit dates
+                       (NOV 18, NOV 29) leave room for Register on the same line. */
+                    .ssg-occ-date span:last-child { font-size: 18px !important; }
                     .ssg-occ-cta {
                         order: 2 !important;
                         margin-left: auto !important;
-                        padding: 7px 16px !important;
+                        padding: 6px 14px !important;
+                        font-size: 11px !important;
+                        letter-spacing: 0.08em !important;
+                        white-space: nowrap !important;
                     }
                     .ssg-occ-main {
                         order: 3 !important;
