@@ -80,6 +80,29 @@
       ]
     },
     {
+      "name": "Your Story of Change Program",
+      "description": "A six-week live online experience for making sense of transition — finding your footing and moving forward with more clarity, creativity, and support. Join Session 2, Session 1, or both.",
+      "image": {
+        "src": "https://claritydecoded.github.io/leah-embeds/img/your-story-of-change-square.png",
+        "alt": "Your Story of Change Program"
+      },
+      "learnMoreUrl": "https://thelittlebookofchange.com/program",
+      "occurrences": [
+        {
+          "date": "2026-11-17",
+          "label": "Session 2 · Change in the World",
+          "sublabel": "6 weeks · Tuesdays 11am–1pm PST · live online",
+          "url": "https://leahlamb.simplero.com/cart/259369-Your-Story-of-Change"
+        },
+        {
+          "date": "2027-01-12",
+          "label": "Session 1 · Change from Within",
+          "sublabel": "6 weeks · Tuesdays 3–5pm PST · live online",
+          "url": "https://leahlamb.simplero.com/cart/259369-Your-Story-of-Change"
+        }
+      ]
+    },
+    {
       "name": "Change Your Story, Change Your Life",
       "description": "A 1-day New Year retreat — a creative intensive in engaging story as a healing art, to help you navigate these times as a Sacred Storyteller.",
       "start": "2027-01-10",
