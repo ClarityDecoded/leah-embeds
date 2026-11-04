@@ -84,7 +84,7 @@ vis.forEach(e=>{
     c+='<div class="sched">';
     occ.forEach((o,i)=>{
       if(i>0)c+='<hr>';
-      c+='<div class="occ"><div class="occ__date"><span class="occ__wd">'+wd(o.d)+'</span><span class="occ__day">'+md(o.d)+'</span></div><div class="occ__main"><div class="occ__city">'+(o.label||'')+'</div>'+(o.sublabel?'<div class="occ__venue">'+o.sublabel+'</div>':'')+'</div>'+(o.url?'<a class="pill" href="'+o.url+'">Register</a>':'')+'</div>';
+      c+='<div class="occ"><div class="occ__date"><span class="occ__wd">'+wd(o.d)+'</span><span class="occ__day">'+md(o.d)+'</span></div><div class="occ__main"><div class="occ__city">'+(o.label||'')+'</div>'+(o.sublabel?'<div class="occ__venue">'+o.sublabel+'</div>':'')+'</div>'+(o.url?'<a class="pill" href="'+o.url+'">'+(o.ctaLabel||e.ctaLabel||'Register')+'</a>':'')+'</div>';
     });
     c+='</div>';
   }

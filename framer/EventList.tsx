@@ -435,7 +435,7 @@ const EventCard: React.FC<{
                                                 style={occRegisterStyle}
                                                 {...linkTargetAttrs(o.url)}
                                             >
-                                                Register
+                                                {o.ctaLabel || ctaLabel || "Register"}
                                             </a>
                                         )}
                                     </div>

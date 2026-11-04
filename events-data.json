@@ -85,6 +85,7 @@
         "src": "https://claritydecoded.github.io/leah-embeds/img/your-story-of-change-square.png",
         "alt": "Your Story of Change Program"
       },
+      "ctaLabel": "Learn More",
       "occurrences": [
         {
           "date": "2026-11-17",
@@ -111,7 +112,7 @@
         "alt": "Change Your Story, Change Your Life"
       },
       "registerNowUrl": "https://schoolforsacredstorytelling.com/change",
-      "ctaLabel": "Register"
+      "ctaLabel": "Learn More"
     },
     {
       "name": "Deep Story",
@@ -124,7 +125,7 @@
         "alt": "Deep Story — a sacred storytelling sanctuary"
       },
       "registerNowUrl": "https://schoolforsacredstorytelling.com/deep-story",
-      "ctaLabel": "Register"
+      "ctaLabel": "Learn More"
     },
     {
       "name": "Myth, Magic & Medicine",
@@ -137,7 +138,7 @@
         "alt": "Myth, Magic & Medicine — night tree"
       },
       "registerNowUrl": "https://schoolforsacredstorytelling.com/mythmagicmedicine-2027",
-      "ctaLabel": "Register"
+      "ctaLabel": "Learn More"
     }
   ]
 }
