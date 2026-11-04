@@ -127,7 +127,17 @@
         "alt": "Deep Story — a sacred storytelling sanctuary"
       },
       "registerNowUrl": "https://schoolforsacredstorytelling.com/deep-story",
-      "ctaLabel": "Learn More"
+      "ctaLabel": "Learn More",
+      "page": {
+        "length": "6 weeks",
+        "tuition": "$450",
+        "day": "Thursdays",
+        "time": "9:30–11:30am PST",
+        "cta": {
+          "label": "Request your place",
+          "url": "https://leahlamb.simplero.com/cart/258958-Deep-Story"
+        }
+      }
     },
     {
       "name": "Myth, Magic & Medicine",
