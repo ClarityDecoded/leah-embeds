@@ -1,6 +1,6 @@
 {
   "_README": "SINGLE SOURCE OF TRUTH for the School for Sacred Storytelling /events page. Edit this file, commit, push to ClarityDecoded/leah-embeds. The Framer page reads it live within a minute. Dates are YYYY-MM-DD (local). Past occurrences and events past 'hideAfter' drop off automatically. See EVENTS-README.md.",
-  "updated": "2026-10-29",
+  "updated": "2026-11-04",
   "events": [
     {
       "name": "Gatherings for Change",
@@ -9,7 +9,6 @@
         "src": "https://claritydecoded.github.io/leah-embeds/img/stories-of-change-square.jpg",
         "alt": "An Evening of Stories of Change — A Sacred Storytelling Gathering"
       },
-      "learnMoreUrl": "https://thelittlebookofchange.com/events",
       "occurrences": [
         {
           "date": "2026-10-29",
@@ -86,19 +85,18 @@
         "src": "https://claritydecoded.github.io/leah-embeds/img/your-story-of-change-square.png",
         "alt": "Your Story of Change Program"
       },
-      "learnMoreUrl": "https://thelittlebookofchange.com/program",
       "occurrences": [
         {
           "date": "2026-11-17",
           "label": "Session 2 · Change in the World",
           "sublabel": "6 weeks · Tuesdays 11am–1pm PST · live online",
-          "url": "https://leahlamb.simplero.com/cart/259369-Your-Story-of-Change"
+          "url": "https://thelittlebookofchange.com/program"
         },
         {
           "date": "2027-01-12",
           "label": "Session 1 · Change from Within",
           "sublabel": "6 weeks · Tuesdays 3–5pm PST · live online",
-          "url": "https://leahlamb.simplero.com/cart/259369-Your-Story-of-Change"
+          "url": "https://thelittlebookofchange.com/program"
         }
       ]
     },
@@ -112,8 +110,20 @@
         "src": "https://claritydecoded.github.io/leah-embeds/img/change-your-story-square.png",
         "alt": "Change Your Story, Change Your Life"
       },
-      "learnMoreUrl": "https://schoolforsacredstorytelling.com/change",
-      "registerNowUrl": "https://leahlamb.simplero.com/cart/264226-Change-Your-Story-Change-Your-Life",
+      "registerNowUrl": "https://schoolforsacredstorytelling.com/change",
+      "ctaLabel": "Register"
+    },
+    {
+      "name": "Deep Story",
+      "description": "An intimate storytelling sanctuary for up to six people — a place to complete your stories: to publish, to perform, or simply for the pleasure of sharing.",
+      "start": "2027-01-15",
+      "timeText": "6 weeks · Thursdays 9:30–11:30am",
+      "hideAfter": "2027-01-16",
+      "image": {
+        "src": "https://claritydecoded.github.io/leah-embeds/img/deep-story-square.jpg",
+        "alt": "Deep Story — a sacred storytelling sanctuary"
+      },
+      "registerNowUrl": "https://schoolforsacredstorytelling.com/deep-story",
       "ctaLabel": "Register"
     },
     {
@@ -126,8 +136,7 @@
         "src": "https://framerusercontent.com/images/mSsYPxtWXL6BlidzAhsXjCRLo.png",
         "alt": "Myth, Magic & Medicine — night tree"
       },
-      "learnMoreUrl": "https://schoolforsacredstorytelling.com/mythmagicmedicine-2027",
-      "registerNowUrl": "https://leahlamb.simplero.com/cart/264138-Myth-Magic-Medicine-Sacred-Storytelling",
+      "registerNowUrl": "https://schoolforsacredstorytelling.com/mythmagicmedicine-2027",
       "ctaLabel": "Register"
     }
   ]
