@@ -182,6 +182,15 @@ const EventCard: React.FC<{
     const occurrences = getFutureOccurrences(event)
     const hasSchedule = occurrences.length > 0
 
+    // The event's "learn more" / info page — used to make the image clickable.
+    // Single events point at their register/info URL; multi-date events use
+    // learnMoreUrl (set per event), falling back to the first dated link.
+    const imageUrl =
+        registerNowUrl ||
+        learnMoreUrl ||
+        (occurrences[0] && occurrences[0].url) ||
+        ""
+
     // On the Framer canvas, whileInView never fires, so skip the hidden-until-
     // scrolled state there — otherwise events look invisible while editing.
     const onCanvas = RenderTarget.current() === RenderTarget.canvas
@@ -362,12 +371,27 @@ const EventCard: React.FC<{
         <motion.article className="ssg-row" style={rowStyle} {...motionProps}>
             {image?.src && (
                 <div className="ssg-image" style={imageFrameStyle}>
-                    <img
-                        src={image.src}
-                        srcSet={image.srcSet}
-                        alt={image.alt || name}
-                        style={imageStyle}
-                    />
+                    {imageUrl ? (
+                        <a
+                            href={imageUrl}
+                            style={{ display: "block", cursor: "pointer" }}
+                            {...linkTargetAttrs(imageUrl)}
+                        >
+                            <img
+                                src={image.src}
+                                srcSet={image.srcSet}
+                                alt={image.alt || name}
+                                style={imageStyle}
+                            />
+                        </a>
+                    ) : (
+                        <img
+                            src={image.src}
+                            srcSet={image.srcSet}
+                            alt={image.alt || name}
+                            style={imageStyle}
+                        />
+                    )}
                 </div>
             )}
 
@@ -445,24 +469,6 @@ const EventCard: React.FC<{
                     </div>
                 )}
 
-                {/* Learn more — left column, under the text / schedule. */}
-                {learnMoreUrl && (
-                    <a
-                        href={learnMoreUrl}
-                        style={learnMoreStyle}
-                        {...linkTargetAttrs(learnMoreUrl)}
-                    >
-                        <span
-                            style={{
-                                borderBottom: `1px solid ${styles.linkColor}`,
-                                paddingBottom: "2px",
-                            }}
-                        >
-                            Learn more
-                        </span>
-                        <span>→</span>
-                    </a>
-                )}
             </div>
 
             {/* Register — right-hand column (tour events use per-row buttons). */}

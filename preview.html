@@ -75,7 +75,9 @@ root.innerHTML='<p class="eyebrow">School for Sacred Storytelling</p><h1 class="
 const learn=(e)=>e.learnMoreUrl?'<a class="learn" href="'+e.learnMoreUrl+'"><span>Learn more</span><span>→</span></a>':'';
 vis.forEach(e=>{
   const occ=fut(e);const hasS=occ.length>0;
-  let img=e.image&&e.image.src?'<div class="ev__img"><img src="'+e.image.src+'" alt="'+(e.image.alt||'')+'"></div>':'';
+  const imageUrl=e.registerNowUrl||e.learnMoreUrl||(occ[0]&&occ[0].url)||'';
+  const imgTag=e.image&&e.image.src?'<img src="'+e.image.src+'" alt="'+(e.image.alt||'')+'">':'';
+  let img=e.image&&e.image.src?'<div class="ev__img">'+(imageUrl?'<a href="'+imageUrl+'" style="display:block;cursor:pointer">'+imgTag+'</a>':imgTag)+'</div>':'';
   let c='<div class="ev__content">';
   if(!hasS&&dateLabel(e))c+='<div class="ev__date">'+dateLabel(e).toUpperCase()+'</div>';
   c+='<div class="ev__name">'+e.name+'</div>';
@@ -88,7 +90,6 @@ vis.forEach(e=>{
     });
     c+='</div>';
   }
-  c+=learn(e);
   c+='</div>';
   let reg='';
   if(!hasS&&(e.registerNowUrl||e.ctaLabel)){
